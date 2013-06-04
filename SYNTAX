@@ -1,0 +1,66 @@
+Expression syntax
+-----------------
+
+1. Operators
+
+	In decreasing priority:
+
+	^ 		(exponentiation)
+	- 		(negative sign)
+	* /		
+	+ -
+	= 		(rule-equation)
+
+	Exponentiation is right-associative, while all the other
+	arithmetic operators are left-associative.
+
+	Example: 1 + 2 * 3
+
+2. Parentheses
+
+	Example: (1 + 2) * 3
+
+3. Variable names / symbols
+
+	Example: bob
+
+4. Functions
+
+	Example: cos(x * x)
+	Example: foo(A * (B + 1), asdf, clown, qwerty - fjds(bob * log(derp)))
+
+Rule syntax
+-----------
+
+Rules are written as equations. Variable in the left-hand-side get matched
+to expressions which are subsituted into the right-hand-side.
+
+For example, the rule 'x + x = 2 * x' will turn the expression 
+'cos(x) + cos(x)' into '2 * cos(x)'.
+
+There are some "special" syntaxes:
+
+e|x matches any expression e without any occurence of x in it
+e:x matches any expression e with an occurence of x in it,
+    including x itself.
+
+e::x matches any expression e with an occurence of x in it,
+     but not x itself.
+
+e|'x matches anything that isn't literally the symbol x
+
+[ Issue: x has to have been defined before (to the left) of the  ]
+[ syntax for these syntaxes to work :(				 ]
+[								 ]
+[ So for example, expressions like "D(e|x, x)" are a problem	 ]
+[ but "D(x, e|x)" will work. There might be a way to fix this... ]
+
+?x matches a direct variable symbol x
+#n matches a number n
+$f matches a function f
+@e matches an expression e which isn't a number
+'e matches literally the symbol e
+
+In the preloaded rule files ("rules" directory, comment-lines start
+with '%' characters).
+

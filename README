@@ -1,0 +1,90 @@
+==============================================================================
+	This is a symbolic differentiation program
+	
+   It features an infix REPL, a tree pattern-matcher/substitutor,
+   and some preloaded derivative rules (the fanciest of which is
+   probably the chain rule)
+
+   This is a toy/self-education project by "blockeduser", May 2013.
+   It is very far from perfect and could be improved upon.
+   It is coded in hopefully-not-too-bad C.
+
+   Much of it is strongly based on examples given in the SICP 
+   ("Structure and Interpretation of Computer Programs") book and videos
+==============================================================================
+
+Program use
+-----------
+
+The program is a REPL. Equations are taken as rules and added to the list 
+of known rules. Expressions are reduced using the set of rules known so
+far. When an expression typed in cannot be reduced, nothing is printed back.
+
+All the lines of all the files in the directory "rules" will be loaded 
+as rules at startup, automatically. Some basic derivative, trigonometry, and
+algebraic simplification rules are already included. Derivatives are
+taken through the syntax 'diff(expression, variable)'.
+
+Many algebraic simplifications are also "hard-coded" into the program.
+
+(The directory "pres-rules" contains rules for presentation of results).
+
+The file "SYNTAX" describes the syntax used for rules and expressions.
+
+To take derivatives, the syntax is diff(expression, variable).
+
+		***************************************
+
+Here are some quick examples:
+
+]=> diff(log((1+x)*(1+x^2)^2*(1+x^3)^3), x)
+(1 + (1 + x) * (9 * x ^ 2) / (1 + x ^ 3) 
+	+ (1 + x) * (4 * x) / (1 + x ^ 2)) / (1 + x)
+
+]=> diff(sin(x * cos(x + log(x))), x)
+cos(x * cos(x + log(x))) * (-1 * x * sin(x + log(x)) 
+	* (1 + 1 / x) + cos(x + log(x)))
+
+]=> diff(e^u + e^(cos(u) * sin(u)), u)
+e ^ u + e ^ (cos(u) * sin(u)) * (cos(u) ^ 2 + -sin(u) ^ 2)
+
+]=> diff(z^log(sqrt(z)) * z / cos(z), z)
+(z ^ (log(z) / 2) * (1 + log(z))) / cos(z) + z ^ (log(z) / 2) 
+	* cos(z) ^ -2 * z * sin(z)
+
+]=> diff(z^z^z, z)
+z ^ (z ^ z) * (log(z) * z ^ z * (1 + log(z)) + z ^ (z - 1))
+
+]=> diff(z^x^y, x)
+z ^ (x ^ y) * x ^ (y - 1) * log(z) * y
+
+Acknowledgements
+----------------
+
+This program is based on three things:
+
+	1) The SICP video about pattern matching
+	   ("4A: Pattern Matching and Rule-based Substitution",
+	    available on MIT's website via an excessively long URL)
+
+	2) The SICP text example about symbolic differentiation
+	   http://mitpress.mit.edu/sicp/full-text/sicp/book/node39.html
+
+	   The file 'rules/basic-deriv-rules' contains exactly the 
+	   derivative rules presented in that example, rewritten in 
+	   this program's syntax. Credit is given in the rule-file's
+	   comments, of course.
+
+	3) My wannabe parser/compiler project from last december
+		(itself based on my wannabe-regexes from
+		 last august, which handle the lexing)
+	   This makes the infix REPL interface possible.
+	   The bulk of the code in this program is from that project.
+
+Bugs
+----
+
+- Matcher can't deal with certain patterns, see file 'SYNTAX'.
+- Memory leakage over time; nothing is ever really free()d. (Might fix one day)
+- Parser crash (segfault) on certain instances of illegal syntax 
+  (I should really fix this)

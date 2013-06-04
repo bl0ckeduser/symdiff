@@ -1,0 +1,4 @@
+# unix object files and executables...
+*.o
+a.out
+matcher

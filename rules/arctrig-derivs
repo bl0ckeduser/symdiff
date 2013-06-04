@@ -1,0 +1,10 @@
+% Source: http://www.themathpage.com/acalc/inverse-trig.htm
+
+D(x, arcsin(x)) = 1/sqrt(1-x^2)
+D(x, arccos(x)) = -(1/sqrt(1-x^2))
+D(x, arctan(x)) = 1/(1 + x^2)
+D(x, arccot(x)) = -(1/(1+x^2))
+D(x, arcsec(x)) = 1/(x * sqrt(x^2 - 1))
+D(x, arccsc(x)) = -(1/sqrt(x * sqrt(x^2 - 1)))
+
+
