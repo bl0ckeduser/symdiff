@@ -29,7 +29,7 @@ token_t* make_fake_tok(char *s)
 {
 	token_t *t = malloc(sizeof(token_t));
 	if (!t)
-		error("malloc(sizeof(token_t))");
+		fail("malloc(sizeof(token_t))");
 	t->start = malloc(strlen(s) + 1);
 	strcpy(t->start, s);
 	t->len = strlen(s);

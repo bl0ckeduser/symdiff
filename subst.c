@@ -34,7 +34,7 @@ void subst(exp_tree_t *tree, dict_t *d, exp_tree_t **father_ptr)
 
 		if((key = findkey(buf, d)) != -1) {
 			if (!father_ptr)
-				error("null pointer substitution....");
+				fail("null pointer substitution....");
 			/* 
 			 * Don't substitute trees, but instead 
 			 * change the tree head label
@@ -51,7 +51,7 @@ void subst(exp_tree_t *tree, dict_t *d, exp_tree_t **father_ptr)
 		buf[tree->tok->len] = 0;
 		if((key = findkey(buf, d)) != -1) {
 			if (!father_ptr)
-				error("null pointer substitution....");
+				fail("null pointer substitution....");
 			*father_ptr = copy_tree(d->match[key]);
 		}
 	} else {
