@@ -88,3 +88,6 @@ Bugs
 - Memory leakage over time; nothing is ever really free()d. (Might fix one day)
 - Parser crash (segfault) on certain instances of illegal syntax 
   (I should really fix this)
+- Rather inefficient. On a 400 MHz system, the command 'diff(x^2, x)' 
+  took 1.667 second to complete, and the command
+  'diff(z^log(sqrt(z)) * z / cos(z), z)' took 38.728 seconds.
