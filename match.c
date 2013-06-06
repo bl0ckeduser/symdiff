@@ -284,11 +284,17 @@ int matchloop(exp_tree_t** rules, int rc, exp_tree_t* tree)
 restart:
 	do {
 		mc = 0;
+		
+		/* Make a dictionary */
+		dict = new_dict();
+
 		/* Go through the rules */
 		for (i = 0; i < rc; ++i) {
-			/* Make a fresh empty dictionary and try
-			 * matching this rule */
-			dict = new_dict();
+
+			/* Empty dictionary if necessary */
+			if (dict->count)
+				dict->count = 0;
+
 			if (treematch(tree, rules[i]->child[0], dict)) {
 				/* It matches. Do the correspoding substitution
 				 * and make a little printout of the form:
@@ -332,10 +338,8 @@ restart:
 					printf("\n");
 				}
 #endif
-
 				break;
 			}
-			free_dict(dict);
 		}
 	/* If any of the rules matched, try them all again. */
 	} while (mc);
@@ -348,6 +352,7 @@ restart:
 			goto restart;
 		}
 
+	free_dict(dict);
 	return m;
 }
 
