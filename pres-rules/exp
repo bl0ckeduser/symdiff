@@ -6,6 +6,7 @@
 ('e)^(k * log(x) + B + C) = x^k * e^B
 ('e)^(k * log(x) + B + C) = x^k * e^B * e^C
 
+('e)^(log(x) / k) = x^(1/k)
 
 ('e)^(log(u)) = u
 a^b/a=a^(b-1)
