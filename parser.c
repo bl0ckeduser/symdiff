@@ -1,3 +1,5 @@
+#include "gc.h"
+
 /*
  * Parser (tokens -> tree)
  *

@@ -1,3 +1,5 @@
+#include "gc.h"
+
 /* Token helper routines */
 
 #include "tokens.h"
@@ -29,10 +31,10 @@ int tok2int(token_t *t)
 /* For hacks */
 token_t* make_fake_tok(char *s)
 {
-	token_t *t = malloc(sizeof(token_t));
+	token_t *t = cgc_malloc(sizeof(token_t));
 	if (!t)
-		fail("malloc(sizeof(token_t))");
-	t->start = malloc(strlen(s) + 1);
+		fail("cgc_malloc(sizeof(token_t))");
+	t->start = cgc_malloc(strlen(s) + 1);
 	strcpy(t->start, s);
 	t->len = strlen(s);
 	return t;

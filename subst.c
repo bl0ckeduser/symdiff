@@ -1,3 +1,5 @@
+#include "gc.h"
+
 /*
  * Substitution routine
  */

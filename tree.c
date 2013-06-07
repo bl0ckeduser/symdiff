@@ -1,6 +1,8 @@
+#include "gc.h"
+
 /* Tree helper routines */
 
-/* FIXME: crazy mallocs and memcpys, no garbage collection (!)
+/* FIXME: crazy cgc_mallocs and memcpys, no garbage collection (!)
  *        a modern OS should clean up, but nevertheless, yeah */
 
 #include "tree.h"
@@ -62,9 +64,9 @@ exp_tree_t* copy_tree(exp_tree_t *src)
 
 exp_tree_t *alloc_exptree(exp_tree_t et)
 {
-	exp_tree_t *p = malloc(sizeof(exp_tree_t));
+	exp_tree_t *p = cgc_malloc(sizeof(exp_tree_t));
 	if (!p)
-		fail("malloc et");
+		fail("cgc_malloc et");
 	*p = et;
 	return p;
 }
@@ -79,9 +81,9 @@ exp_tree_t new_exp_tree(unsigned int type, token_t* tok)
 	token_t* tok_copy = NULL;
 
 	if (tok) {
-		tok_copy = malloc(sizeof(token_t));
+		tok_copy = cgc_malloc(sizeof(token_t));
 		if (!tok_copy)
-			fail("malloc tok_copy");
+			fail("cgc_malloc tok_copy");
 		memcpy(tok_copy, tok, sizeof(token_t));
 	}
 
@@ -90,9 +92,9 @@ exp_tree_t new_exp_tree(unsigned int type, token_t* tok)
 	tr.tok = tok_copy;
 	tr.child_count = 0;
 	tr.child_alloc = 64;
-	tr.child = malloc(64 * sizeof(exp_tree_t *));
+	tr.child = cgc_malloc(64 * sizeof(exp_tree_t *));
 	if (!tr.child)
-		fail("malloc tree children");
+		fail("cgc_malloc tree children");
 	tr.child_count = 0;
 
 	return tr;

@@ -1,3 +1,5 @@
+#include "gc.h"
+
 #include "tree.h"
 #include "dict.h"
 #include "match.h"

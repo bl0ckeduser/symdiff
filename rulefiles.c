@@ -1,3 +1,5 @@
+#include "gc.h"
+
 /*
  * This is pretty boring code which reads
  * all the lines in all the files in the

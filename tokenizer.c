@@ -1,3 +1,5 @@
+#include "gc.h"
+
 /*
  * Tokenization code based on wannabe-regex.c,
  * which I wrote some months ago
@@ -57,11 +59,11 @@ void add_link(trie* from, trie* to)
 
 trie* new_trie()
 {
-	trie* t = malloc(sizeof(trie));
+	trie* t = cgc_malloc(sizeof(trie));
 	int i;
 	if (!t)
 		fail("trie allocation");
-	t->link = malloc(10 * sizeof(trie*));
+	t->link = cgc_malloc(10 * sizeof(trie*));
 	if (!t->link)
 		fail("trie links");
 	t->links = 0;
@@ -88,7 +90,7 @@ void add_token(trie* t, char* tok, int key)
 	char* new_tok;
 	int n;
 
-	new_tok = malloc(len + 32);
+	new_tok = cgc_malloc(len + 32);
 	if (!new_tok)
 		fail("buffer allocation");
 	strcpy(new_tok, tok);
@@ -201,8 +203,6 @@ void add_token(trie* t, char* tok, int key)
 				++n;
 		}
 	}
-
-	free(new_tok);
 
 	/* 
 	 * We have reached the accept-state node;
@@ -366,11 +366,11 @@ token_t* tokenize(char *in_buf)
 	int i;
 	int line = 1;
 	char *line_start;
-	token_t *toks = malloc(64 * sizeof(token_t));
+	token_t *toks = cgc_malloc(64 * sizeof(token_t));
 	int tok_alloc = 64;
 	int tok_count = 0;
 	int in_comment = 0;
-	char *buf = malloc(strlen(in_buf) + 1);
+	char *buf = cgc_malloc(strlen(in_buf) + 1);
 	char *p;
 
 	strcpy(buf, in_buf);

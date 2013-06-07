@@ -1,3 +1,5 @@
+#include "gc.h"
+
 /*
  * Optimizations:
  *

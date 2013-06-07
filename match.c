@@ -1,3 +1,5 @@
+#include "gc.h"
+
 /*
  * Tree pattern-matching algorithm,
  * based on the one described in the SICP video
@@ -352,8 +354,6 @@ restart:
 			m = 1;
 			goto restart;
 		}
-
-	free_dict(dict);
 	return m;
 }
 

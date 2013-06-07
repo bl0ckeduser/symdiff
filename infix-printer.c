@@ -1,3 +1,5 @@
+#include "gc.h"
+
 /*
  * Print out an expression tree in standard infix notation,
  * e.g. 1 + 2 * 3, omitting unnecessary parentheses.

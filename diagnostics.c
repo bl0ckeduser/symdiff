@@ -1,3 +1,5 @@
+#include "gc.h"
+
 /*
  * Pretty compiler-failure error.
  * (same code as in my wannabe compiler

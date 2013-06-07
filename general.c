@@ -1,3 +1,5 @@
+#include "gc.h"
+
 /* General-use routines */
 
 #include <stdlib.h>

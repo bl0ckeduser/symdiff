@@ -1,3 +1,5 @@
+#include "gc.h"
+
 /*
 ==============================================================================
         This is a symbolic differentiation program
@@ -29,6 +31,7 @@
 #include "infix-printer.h"
 #include "apply-rules.h"
 #include "rulefiles.h"
+#include "gc.h"
 
 int main(int argc, char** argv)
 {
@@ -43,9 +46,16 @@ int main(int argc, char** argv)
 	int prc;
 	char lin[1024];
 	int success;
+	gcarray_t *setup, *iter;
 
 	extern void fail(char*);
 	extern int unwind_expos(exp_tree_t *et);
+
+#ifdef LEAK_STRESS_TEST
+	strcpy(lin, "diff(z^z^z, z)");
+#endif
+
+	cgc_set(setup = new_gca());
 
 	/*
 	 * Setup lexer (wannabe regex code)
@@ -73,17 +83,15 @@ int main(int argc, char** argv)
 
 	while (1) {
 
+#ifndef LEAK_STRESS_TEST
 		/* Print prompt, read line */
 		printf("]=> ");
 		fflush(stdout);
-		if (!fgets(lin, 1024, stdin))
-			break;
-
-		/* (stops gracefully on EOF) */
-		if (feof(stdin)) {
-			printf("\n");
+		if (!fgets(lin, 1024, stdin)) {
+			printf("\n");	/* (stops gracefully on EOF) */
 			break;
 		}
+#endif
 
 		/* Skip empty lines. The parsing code really
 		 * hates them, and by "really" I mean segfault. */
@@ -108,6 +116,8 @@ int main(int argc, char** argv)
 			/* Don't parse this ! */
 			continue;
 		}
+
+		cgc_set(iter = new_gca());
 
 		/* Lex the line */
 		tokens = tokenize(lin);
@@ -160,11 +170,17 @@ int main(int argc, char** argv)
 					;
 				(void)apply_rules_and_optimize(pres_rules, prc,
 					&tree);
+#ifndef LEAK_STRESS_TEST
 				printout_tree_infix(tree);
 				printf("\n");
+#endif
 			}
 		}
+
+		gca_cleanup(iter);
 	}
+
+	gca_cleanup(setup);
 
 	return 0;
 }
