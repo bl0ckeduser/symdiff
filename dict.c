@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include "dict.h"
 
+extern void fail(char*);
+
 dict_t* new_dict()
 {
 	int i;

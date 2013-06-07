@@ -1,6 +1,7 @@
 #include "tree.h"
 #include "dict.h"
 #include "match.h"
+#include "optimize.h"
 
 /* We recursively iterate through all 
  * rules on all the children of the tree

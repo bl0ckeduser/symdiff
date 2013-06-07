@@ -4,6 +4,8 @@
 #include <string.h>
 #include <stdio.h>
 
+extern void fail(char* mesg);
+
 /* Print out a token's raw string */
 void tok_display(FILE *f, token_t t)
 {

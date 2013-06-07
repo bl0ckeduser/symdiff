@@ -18,6 +18,7 @@
 #include "infix-printer.h"
 
 extern void fail(char* mesg);
+extern int sametree(exp_tree_t *a, exp_tree_t *b);
 
 char buf_a[128], buf_b[128], buf_c[128];
 

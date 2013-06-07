@@ -15,8 +15,12 @@
 #include "parser.h"
 #include "dict.h"
 #include <dirent.h>
+#include <unistd.h>
 #include "rulefiles.h"
 #include "optimize.h"
+
+extern void fail(char*);
+
 
 int readrules(exp_tree_t** rules, char *dir)
 {
@@ -29,16 +33,16 @@ int readrules(exp_tree_t** rules, char *dir)
 	printf("Reading rules from '%s'...", dir);
 	fflush(stdout);
 	if ((dirp = opendir(dir))) {
+		if (chdir(dir) == -1)
+			fail("directory change failed");
 		for (dp = readdir(dirp); dp; dp = readdir(dirp)) {
 			if (*(dp->d_name) != '.') {
 #ifdef DEBUG_2
 				printf("Reading rule-file '%s'...\n", dp->d_name);
 #endif
-				chdir(dir);
 				if ((f = fopen(dp->d_name, "r"))) {
 					while (1) {
-						fgets(lin, 1024, f);
-						if (feof(f))
+						if (!fgets(lin, 1024, f))
 							break;
 						/* skips comments and blanks ... */
 						if (!lin[1] || !*lin || *lin == '%')
@@ -53,7 +57,8 @@ int readrules(exp_tree_t** rules, char *dir)
 					printf("\nCouldn't open rule-file '%s'\n", dp->d_name);
 			}
 		}
-		chdir("..");
+		if (chdir("..") == -1)
+			fail("directory change failed");
 		closedir(dirp);
 		printf("Done.\n");
 	} else

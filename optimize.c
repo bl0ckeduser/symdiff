@@ -29,6 +29,9 @@
 					 		__LINE__); return(X); }
 #endif
 
+extern int tok2int(token_t *t);
+extern int sametree(exp_tree_t *a, exp_tree_t *b);
+
 char buf[1024];
 exp_tree_t new, *new_ptr;
 exp_tree_t new2, *new2_ptr;

@@ -28,6 +28,7 @@
 #include "match.h"
 #include "infix-printer.h"
 #include "apply-rules.h"
+#include "rulefiles.h"
 
 int main(int argc, char** argv)
 {
@@ -40,10 +41,11 @@ int main(int argc, char** argv)
 	exp_tree_t* pres_rules[128];
 	int rc;
 	int prc;
-	char lin[256];
+	char lin[1024];
 	int success;
 
 	extern void fail(char*);
+	extern int unwind_expos(exp_tree_t *et);
 
 	/*
 	 * Setup lexer (wannabe regex code)
@@ -74,7 +76,8 @@ int main(int argc, char** argv)
 		/* Print prompt, read line */
 		printf("]=> ");
 		fflush(stdout);
-		fgets(lin, 1024, stdin);
+		if (!fgets(lin, 1024, stdin))
+			break;
 
 		/* (stops gracefully on EOF) */
 		if (feof(stdin)) {
