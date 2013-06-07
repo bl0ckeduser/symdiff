@@ -18,9 +18,6 @@
  */
 
 
-/* TODO:	(A * B^n) / (B * C * D)			*/
-/*			[easy]							*/
-
 #include "tree.h"
 #include "tokens.h"
 #include <stdio.h>
@@ -989,6 +986,41 @@ int optimize(exp_tree_t *et)
 
 			memcpy(et, num_ptr, sizeof(exp_tree_t));
 			return(1);			
+		}
+	}
+
+	/* 
+	 *    (A * B^n) / (B * C * D)	
+	 * => (A * B ^ (n - 1)) / (C * D)
+	 */
+	if (et->head_type == DIV
+		&& et->child_count == 2
+		&& et->child[0]->head_type == MULT
+		&& et->child[1]->head_type == MULT) {
+		below = et->child[0];
+		derp = et->child[1];
+		for (q = 0; q < below->child_count; ++q) {
+			if (below->child[q]->head_type == EXP
+				&& below->child[q]->child_count == 2) {
+				cancel = below->child[q];
+				chk = 0;
+				for (w = 0; w < derp->child_count; ++w)
+					if (sametree(derp->child[w], cancel->child[0])) {
+						chk2 = w;
+						if (++chk > 1)
+							break;
+					}
+
+				if (chk == 1) {
+					make_tree_number(derp->child[chk2], 1);
+					num = new_exp_tree(SUB, NULL);
+					num_ptr = alloc_exptree(num);
+					add_child(num_ptr, copy_tree(cancel->child[1]));
+					add_child(num_ptr, new_tree_number(1));
+					cancel->child[1] = num_ptr;
+					return 1;
+				}
+			}
 		}
 	}
 
