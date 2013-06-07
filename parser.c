@@ -35,7 +35,7 @@ extern void fail(char* mesg);
 token_t peek()
 {
 	if (indx >= tok_count) {
-		return tokens[tok_count];
+		return tokens[tok_count - 1];
 	}
 	else
 		return tokens[indx];
