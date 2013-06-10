@@ -1035,6 +1035,51 @@ int optimize(exp_tree_t *et)
 		return 1;
 	}
 
+	/*
+	 * A * U/A  * FOO * BAR * XYZ
+	 * => U * FOO * BAR * XYZ
+	 *
+	 * When applied repeatedly, it can do e.g.
+	 * 		A * U/A * BAR/A * A * A * XYZ
+	 * 		=> U * BAR * A * XYZ
+	 */
+	if (et->head_type == MULT
+		&& et->child_count >= 2) {
+
+		for (q = 0; q < et->child_count; ++q) {
+			cancel = et->child[q];
+
+			/* A must be unique */
+			chk = 0;
+			for (w = 0; w < et->child_count; ++w)
+				if (sametree(et->child[w], cancel))
+					if (++chk > 1)
+						break;
+			if (chk != 1)
+				break;
+
+			/* and there must be one instance of U / A */
+			chk = 0;
+			for (w = 0; w < et->child_count; ++w) {
+				if (et->child[w]->head_type == DIV
+					&& et->child[w]->child_count == 2
+					&& sametree(et->child[w]->child[1], cancel)) {
+					if (++chk > 1)
+						break;
+					else
+						chk2 = w;
+				}				
+			}
+
+			/* all conditions fulfilled, do it */
+			if (chk == 1) {
+				make_tree_number(et->child[q], 1);
+				et->child[chk2]->child_count--;
+				return 1;
+			}
+		}
+	}
+
 	return did;
 }
 

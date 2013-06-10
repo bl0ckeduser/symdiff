@@ -5,4 +5,3 @@
 A / B + C / B^2 = (A * B + C) / B^2
 A / B - C / B^2 = (A * B - C) / B^2
 
-A * (B / A) = B
