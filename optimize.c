@@ -17,7 +17,6 @@
  * of the algebraic simplifications...
  */
 
-
 #include "tree.h"
 #include "tokens.h"
 #include <stdio.h>
@@ -1022,6 +1021,18 @@ int optimize(exp_tree_t *et)
 				}
 			}
 		}
+	}
+
+	/*
+	 * --A = A
+	 */
+	if (et->head_type == NEGATIVE
+		&& et->child_count == 1
+		&& et->child[0]->head_type == NEGATIVE
+		&& et->child[0]->child_count == 1) {
+
+		memcpy(et, et->child[0]->child[0], sizeof(exp_tree_t));
+		return 1;
 	}
 
 	return did;
