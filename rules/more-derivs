@@ -1,6 +1,4 @@
 % Some more derivatives
 
-% derp
-ln(u) = log(u)
-
 D(u, log(u)) = 1 / u
+D(u, ln(u)) = 1 / u

@@ -3,6 +3,7 @@ D(a, (b|'e)^(@c)) = D(a, e^(log(b) * c))
 D(u, ('e)^u) = e^u
 
 log('e) = 1
+ln('e) = 1
 
 u|'e^(@x) = e^(log(u) * x)
 
