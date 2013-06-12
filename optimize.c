@@ -1087,7 +1087,8 @@ int optimize(exp_tree_t *et)
 	if (et->head_type == MULT
 		&& et->child_count == 2
 		&& et->child[1]->head_type == DIV
-		&& et->child[1]->child_count == 2) {
+		&& et->child[1]->child_count == 2
+		&& et->child[1]->child[0]->head_type == MULT) {
 
 		add_child(et->child[1]->child[0], copy_tree(et->child[0]));
 		make_tree_number(et->child[0], 1);
@@ -1103,7 +1104,8 @@ int optimize(exp_tree_t *et)
 			cancel = et->child[q];
 			for (w = 0; w < et->child_count; ++w) {
 				if (et->child[w]->head_type == DIV
-					&& et->child[w]->child_count == 2) {
+					&& et->child[w]->child_count == 2
+					&& et->child[w]->child[1]->head_type == MULT) {
 					below = et->child[w]->child[1];
 					chk = 0;
 					for (e = 0; e < below->child_count; ++e) {

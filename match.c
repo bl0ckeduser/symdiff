@@ -352,7 +352,7 @@ restart:
 	for (i = 0; i < tree->child_count; ++i)
 		if (matchloop(rules, rc, tree->child[i])) {
 			m = 1;
-			goto restart;
+			/* goto restart; */
 		}
 	return m;
 }
