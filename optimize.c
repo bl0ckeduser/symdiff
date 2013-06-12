@@ -1080,6 +1080,54 @@ int optimize(exp_tree_t *et)
 		}
 	}
 
+	/*
+	 * A * (B * C * ... * F) / G 
+	 * => (A * B * C .. * F) / G
+	 */
+	if (et->head_type == MULT
+		&& et->child_count == 2
+		&& et->child[1]->head_type == DIV
+		&& et->child[1]->child_count == 2) {
+
+		add_child(et->child[1]->child[0], copy_tree(et->child[0]));
+		make_tree_number(et->child[0], 1);
+		return 1;
+	}
+
+	/*
+	 * 	   	donald / (u * x ^ n) * x * foo
+	 * =>  	donald / (u * x ^ (n - 1)) * foo
+	 */
+	if (et->head_type == MULT) {
+		for (q = 0; q < et->child_count; ++q) {
+			cancel = et->child[q];
+			for (w = 0; w < et->child_count; ++w) {
+				if (et->child[w]->head_type == DIV
+					&& et->child[w]->child_count == 2) {
+					below = et->child[w]->child[1];
+					chk = 0;
+					for (e = 0; e < below->child_count; ++e) {
+						if(below->child[e]->head_type == EXP
+							&& below->child[e]->child_count == 2
+							&& sametree(below->child[e]->child[0], cancel)) {
+							chk = 1;
+							break;
+						}
+					}
+					if (chk) {
+						make_tree_number(cancel, 1);
+						num = new_exp_tree(SUB, NULL);
+						num_ptr = alloc_exptree(num);
+						add_child(num_ptr, copy_tree(below->child[e]->child[1]));
+						add_child(num_ptr, new_tree_number(1));
+						below->child[e]->child[1] = num_ptr;
+						return 1;
+					}
+				}
+			}
+		}
+	}
+
 	return did;
 }
 
