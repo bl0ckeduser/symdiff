@@ -96,7 +96,7 @@ void rule(char *r, exp_tree_t **rules, int* rc)
 
 	/* parsing */
 	tree = *((parse(tokens)).child[0]);
-	optimize(&tree);
+	/* optimize(&tree); */
 
 	/* some preventive checking */
 	if (tree.head_type != EQL) {
