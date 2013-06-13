@@ -8,7 +8,7 @@
 D(@var, $func(e::var)) = D(e, func(e)) * D(var, e)
 
 % Chain-rule for powers...
-D(@var, e::var ^ u) = u * e ^ (u - 1) * D(var, e)
+D(@var, e::var ^ #u) = u * e ^ (u - 1) * D(var, e)
 
 % Chain-rule for exponential
 D(@var, e^(u::var)) = D(u, e^u) * D(var, u)
