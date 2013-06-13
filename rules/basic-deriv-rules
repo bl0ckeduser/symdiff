@@ -16,6 +16,5 @@
 
 D(x, e|x) = 0
 D(@x, x) = 1
-D(@x, u + v) = D(x, u) + D(x, v)
 D(@x, u * v) = u * D(x, v) + v * D(x, u)
 D(@x, -(u:x)) = -D(x, u)

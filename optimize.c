@@ -1130,6 +1130,29 @@ int optimize(exp_tree_t *et)
 		}
 	}
 
+	/* 
+	 * N-term sum rule
+	 * D(u, a + b + c + ...) = D(u, a) + D(u, b) + D(u, c) + ...
+	 */
+	if (et->head_type == FUNC
+		&& *(et->tok->start) == 'D'
+		&& et->tok->len == 1
+		&& et->child_count == 2
+		&& et->child[1]->head_type == ADD
+		&& et->child[1]->child_count > 1) {
+
+		new = new_exp_tree(ADD, NULL);
+		new_ptr = alloc_exptree(new);
+
+		for (q = 0; q < et->child[1]->child_count; ++q) {
+			num_ptr = copy_tree(et);
+			num_ptr->child[1] = copy_tree(et->child[1]->child[q]);
+			add_child(new_ptr, num_ptr);
+		}
+
+		memcpy(et, new_ptr, sizeof(exp_tree_t));
+		return(1);
+	}
 	return did;
 }
 
