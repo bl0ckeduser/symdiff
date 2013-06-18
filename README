@@ -5,7 +5,7 @@
    and some preloaded derivative rules (the fanciest of which is
    probably the chain rule)
 
-   This is a toy/self-education project by "blockeduser", May 2013.
+   This is a toy/self-education project by "blockeduser", started May 2013.
    It is very far from perfect and could be improved upon.
    It is coded in hopefully-not-too-bad C.
 
@@ -101,4 +101,20 @@ Fixed bugs
   'diff(z^log(sqrt(z)) * z / cos(z), z)' took 38.728 seconds.
   UPDATE: since commit 147cdea87850438bd2006e54389a0c594d19cf99,
   these times have shrunk to 0.135s and 0.737s respectively :)
+
+Notes
+-----
+
+Unfortunately, there are several other projects by other people with
+the same name, for example one which is a GPL'd a symbolic differentiator
+dating to 2003; one which is a commercial symbolic differentiator;
+and one which is a serious research project in a different field.
+
+I'm not trying to steal anybody's trademarks. I'm just trying to write
+code for fun and learning.
+
+Also, I've made a closed-source-freeware step-by-step derivatives GUI
+desktop application based on this code. It is available at:
+
+   https://sites.google.com/site/bl0ckeduserssoftware/easyderivsteps
 
