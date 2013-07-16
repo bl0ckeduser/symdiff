@@ -118,3 +118,9 @@ desktop application based on this code. It is available at:
 
    https://sites.google.com/site/bl0ckeduserssoftware/easyderivsteps
 
+There's now also a Windows 8 "app" version of the step-by-step GUI available:
+
+   http://sites.google.com/site/bl0ckeduserssoftware/ssdc_w8
+
+Developing this app was somewhat of an interesting challenge.
+Tip: "Visual Studio 2012" needs a few GB of RAM to operate happily.
