@@ -123,20 +123,11 @@ int treematch(exp_tree_t *a, exp_tree_t *b, dict_t* d)
 		}
 	}
 
-	/* (MATCH_XXX (VARIABLE:e) (VARIABLE:x)) */
-	/* MATCH_IND: match "E" if it contains no occurence of the symbol
-	 * stored for "X" */
-	/* MATCH_CONT: match "E" if it contains an occurence, or is directly
-	 * the symbol stored for "X" */
-	/* MATCH_CONTX: match "E" if it contains an occurence, and isn't
-	 * directly the symbol stored for "X" */
-
-
-/*
-	(VARIABLE:bar)
-	(MATCH_IND_SYM (VARIABLE:a) (VARIABLE:e))
-	Match anything that isn't the symbol
-*/
+	/*
+	 * (VARIABLE:bar)
+	 * (MATCH_IND_SYM (VARIABLE:a) (VARIABLE:e))
+	 * Match anything that isn't a given symbol
+	 */
 	if (b->head_type == MATCH_IND_SYM) {
 		if (a->head_type != VARIABLE) {
 			strncpy(buf_a, b->child[0]->tok->start, b->child[0]->tok->len);
@@ -161,6 +152,17 @@ int treematch(exp_tree_t *a, exp_tree_t *b, dict_t* d)
 		}
 	}
 
+	/* (MATCH_XXX (VARIABLE:e) (VARIABLE:x)) ...
+	 * 
+	 * MATCH_IND: match "E" if it contains no occurence of the symbol
+	 * stored for "X"
+ 	 *
+	 * MATCH_CONT: match "E" if it contains an occurence of, or is directly
+	 * the symbol stored for "X"
+	 *
+	 * MATCH_CONTX: match "E" if it contains an occurence of, and isn't
+	 * directly the symbol stored for "X"
+	 */
 	if (b->head_type == MATCH_IND
 		|| b->head_type == MATCH_CONT
 		|| b->head_type == MATCH_CONTX) {
@@ -206,9 +208,11 @@ int treematch(exp_tree_t *a, exp_tree_t *b, dict_t* d)
 		}
 	}
 
-	/* (MATCH_FUNC:foo (ADD (VARIABLE:x) (NUMBER:1))) */
-	/* MATCH_FUNC: match a function and then do standard
-	 * matching on its children */
+	/* (MATCH_FUNC:foo (ADD (VARIABLE:x) (NUMBER:1)))
+	 * 
+	 * MATCH_FUNC: match a function and then do standard
+	 * matching on its children
+	 */
 	if (b->head_type == MATCH_FUNC && a->head_type == FUNC) {
 		/* get meta-symbol */
 		strncpy(buf_a, b->tok->start, b->tok->len);
