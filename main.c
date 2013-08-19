@@ -35,17 +35,14 @@
 
 int main(int argc, char** argv)
 {
-	char* buf;
 	token_t* tokens;
 	exp_tree_t tree;
-	int mc;
 	int i;
 	exp_tree_t* rules[128];
 	exp_tree_t* pres_rules[128];
 	int rc;
 	int prc;
 	char lin[1024];
-	int success;
 	gcarray_t *setup, *iter;
 
 	extern void fail(char*);

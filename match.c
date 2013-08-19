@@ -92,7 +92,6 @@ int treematch(exp_tree_t *a, exp_tree_t *b, dict_t* d)
 {
 	int i;
 	int id;
-	int check;
 
 	/* 
 	 * VARIABLE: general (any tree) match, 

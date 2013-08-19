@@ -71,11 +71,8 @@ int readrules(exp_tree_t** rules, char *dir)
 
 void rule(char *r, exp_tree_t **rules, int* rc)
 {
-	char* buf;
 	token_t* tokens;
 	exp_tree_t tree;
-	int mc;
-	int i;
 
 	extern void fail(char*);
 
