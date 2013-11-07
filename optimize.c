@@ -1153,6 +1153,19 @@ int optimize(exp_tree_t *et)
 		memcpy(et, new_ptr, sizeof(exp_tree_t));
 		return(1);
 	}
+
+	/* anything times zero is 0 */
+	if (et->head_type == MULT
+		&& et->child_count > 1) {
+		for (q = 0; q < et->child_count; ++q) {
+			if (et->child[q]->head_type == NUMBER
+				&& tok2int(et->child[q]->tok) == 0) {
+				memcpy(et, new_tree_number(0), sizeof(exp_tree_t));
+				return(1);
+			}
+		}
+	}
+
 	return did;
 }
 
