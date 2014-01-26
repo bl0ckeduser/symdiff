@@ -1,0 +1,11 @@
+commit 	43a52bf02adecf0b64838260e905c6514105c646,
+dated 	"Wed Nov 6 19:12:03 2013 -0500",
+corresponds to version 1.0 of the closed-source GUI, 
+which was compiled on "Thu Jun 13 12:54:16 EDT 2013".
+
+this also corresponds to version 1.0.0.2 of the windows 8 version of the GUI,
+published July 5, 2013.
+
+-----------------------------------------------------------------------------
+
+
