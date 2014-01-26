@@ -294,7 +294,7 @@ exp_tree_t sum_expr()
 	return *tree_ptr;
 }
 
-/* mul_expr := pow_expr { mul-op pow_expr } */
+/* mul_expr := pow_expr { mul-op signed_expr } */
 exp_tree_t mul_expr()
 {
 	/* this routine is mostly a repeat of sum_expr() */
