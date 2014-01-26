@@ -25,10 +25,10 @@ int tok_count;
 
 exp_tree_t block();
 exp_tree_t expr();
-exp_tree_t pow_expr();
+exp_tree_t pow_expr(int);
 exp_tree_t sum_expr();
 exp_tree_t mul_expr();
-exp_tree_t unary_expr();
+exp_tree_t unary_expr(int);
 exp_tree_t signed_expr();
 void printout(exp_tree_t et);
 extern void fail(char* mesg);
@@ -294,57 +294,108 @@ exp_tree_t sum_expr()
 	return *tree_ptr;
 }
 
-/* mul_expr := pow_expr { mul-op signed_expr } */
+/* mul_expr := pow_expr { ( mul-op signed_expr) | (pow_expr) } */
 exp_tree_t mul_expr()
 {
 	/* this routine is mostly a repeat of sum_expr() */
-	exp_tree_t child, tree, new;
+	exp_tree_t child, child2, tree, new;
 	exp_tree_t *child_ptr, *tree_ptr, *new_ptr;
 	exp_tree_t *root;
 	int prev;
 	token_t oper;
+	int impmul = 0;
 
 	if (!valid_tree(child = signed_expr()))
 		return null_tree;
 	
-	if (!is_mul_op((oper = peek()).type))
-		return child;
-	
+	/*
+	 * maybe an implicit multiplication...
+	 */
+	if (!is_mul_op((oper = peek()).type)) {
+		if (indx < tok_count) {
+			if (valid_tree(child2 = unary_expr(1))) {
+				tree = new_exp_tree(MULT, NULL);
+				impmul = 1;
+				printf("IMPMUL\n");
+				printout_tree(child2);
+				printf("\n");
+			} else {
+				return child;
+			}
+		} else {
+			return child;
+		}
+	}
+
 	child_ptr = alloc_exptree(child);
 	
-	switch (oper.type) {
-		case TOK_DIV:
-			tree = new_exp_tree(DIV, NULL);
-		break;
-		case TOK_MUL:
-			tree = new_exp_tree(MULT, NULL);
-		break;
+	if (!impmul) {
+		switch (oper.type) {
+			case TOK_DIV:
+				tree = new_exp_tree(DIV, NULL);
+			break;
+			case TOK_MUL:
+				tree = new_exp_tree(MULT, NULL);
+			break;
+		}
+		prev = oper.type;
+		++indx;	/* eat add-op */
 	}
-	prev = oper.type;
-	++indx;	/* eat add-op */
+
 	tree_ptr = alloc_exptree(tree);
 	add_child(tree_ptr, child_ptr);
 
+	if (impmul)
+		child = child2;
+
 	while (1) {
-		if (!valid_tree(child = signed_expr()))
-			parse_fail("expression expected");
+		if (!impmul) {
+			if (!valid_tree(child = signed_expr()))
+				parse_fail("expression expected");
+		}
 
 		/* add term as child */
 		add_child(tree_ptr, alloc_exptree(child));
 
-		/* bail out early if no more operators */
-		if (!is_mul_op((oper = peek()).type))
-			return *tree_ptr;
-
-		switch (oper.type) {
-			case TOK_DIV:
-				new = new_exp_tree(DIV, NULL);
-			break;
-			case TOK_MUL:
-				new = new_exp_tree(MULT, NULL);
-			break;
+		/*
+		 * it could be an implicit multiplication,
+		 * as in x log(x) or 5x
+		 * -- or the the end of this construction...
+		 */
+#define IMPMUL_DEBUG
+		impmul = 0;
+		if (!is_mul_op((oper = peek()).type)) {
+			if (indx < tok_count) {
+				#ifdef IMPMUL_DEBUG
+					printf("trying special (tokindx=%d/%d)...\n", indx, tok_count);
+					//getchar();
+				#endif
+				if (valid_tree(child = unary_expr(1))) {
+					oper.type = TOK_MUL;
+					impmul = 1;
+					printf("IMPMUL\n");
+				} else {
+					#ifdef IMPMUL_DEBUG
+						printf("no\n");
+					#endif
+					return *tree_ptr;
+				}
+			} else {
+				return *tree_ptr;
+			}
 		}
-		++indx;	/* eat add-op */
+
+		if (!impmul) {
+			switch (oper.type) {
+				case TOK_DIV:
+					new = new_exp_tree(DIV, NULL);
+				break;
+				case TOK_MUL:
+					new = new_exp_tree(MULT, NULL);
+				break;
+			}
+			++indx;	/* eat add-op */
+		}
 
 		new_ptr = alloc_exptree(new);
 		add_child(new_ptr, tree_ptr);
@@ -365,19 +416,19 @@ exp_tree_t signed_expr()
 	if (tok.type == TOK_MINUS) {
 		++indx;
 		tree = new_exp_tree(NEGATIVE, NULL);
-		if (valid_tree(subtree = pow_expr()))
+		if (valid_tree(subtree = pow_expr(0)))
 			add_child(&tree, alloc_exptree(subtree));
 		else
 			parse_fail("expression expected after sign");
 		return tree;
 	} else
-		return pow_expr();
+		return pow_expr(0);
 }
 
 /*
 	pow_expr :=  unary_expr ['^' expr]
 */
-exp_tree_t pow_expr()
+exp_tree_t pow_expr(int special)
 {
 	exp_tree_t tree, subtree, subtree2;
 	exp_tree_t subtree3;
@@ -386,7 +437,7 @@ exp_tree_t pow_expr()
 	token_t tok;
 	int save = indx;
 
-	if (valid_tree(subtree = unary_expr())) {
+	if (valid_tree(subtree = unary_expr(special))) {
 		if (peek().type != TOK_EXP) {
 			return subtree;
 		}
@@ -394,7 +445,7 @@ exp_tree_t pow_expr()
 			tree = new_exp_tree(EXP, NULL);
 			++indx;	/* eat comp-op */
 			add_child(&tree, alloc_exptree(subtree));
-			if (!valid_tree(subtree2 = pow_expr()))
+			if (!valid_tree(subtree2 = pow_expr(special)))
 				parse_fail("expression expected");
 			add_child(&tree, alloc_exptree(subtree2));
 		}
@@ -411,7 +462,7 @@ exp_tree_t pow_expr()
 			| ident '(' expr1, expr2, exprN ')'
 			| - expr
 */
-exp_tree_t unary_expr()
+exp_tree_t unary_expr(int special)
 {
 	exp_tree_t tree = null_tree, subtree = null_tree;
 	exp_tree_t subtree2 = null_tree, subtree3;
@@ -475,10 +526,10 @@ exp_tree_t unary_expr()
 		return tree;
 	}
 
-	if (tok.type == TOK_MINUS) {
+	if (!special && tok.type == TOK_MINUS) {
 		++indx;
 		tree = new_exp_tree(NEGATIVE, NULL);
-		if (valid_tree(subtree = pow_expr()))
+		if (valid_tree(subtree = pow_expr(0)))
 			add_child(&tree, alloc_exptree(subtree));
 		else
 			parse_fail("expression expected after sign");
