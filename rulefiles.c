@@ -34,6 +34,9 @@ int readrules(exp_tree_t** rules, char *dir)
 
 	printf("Reading rules from '%s'...", dir);
 	fflush(stdout);
+#ifdef DEBUG_2
+	printf("\n");
+#endif
 	if ((dirp = opendir(dir))) {
 		if (chdir(dir) == -1)
 			fail("directory change failed");
@@ -80,6 +83,7 @@ void rule(char *r, exp_tree_t **rules, int* rc)
 	tokens = tokenize(r);
 
 #ifdef DEBUG_2
+	int i;
 	/* Display the tokens */
 	for (i = 0; tokens[i].start; i++) {
 		fprintf(stderr, "%d: %s: ", i, tok_nam[tokens[i].type]);
