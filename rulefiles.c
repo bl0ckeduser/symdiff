@@ -16,20 +16,18 @@
 #include "tree.h"
 #include "parser.h"
 #include "dict.h"
-#include <dirent.h>
-#include <unistd.h>
 #include "rulefiles.h"
 #include "optimize.h"
 
 extern void fail(char*);
 
-
 int readrules(exp_tree_t** rules, char *dir)
 {
-	DIR *dirp;
-	struct dirent *dp;
-	FILE* f;
+	FILE* f  = NULL;
+	FILE* index = NULL;
 	char lin[1024];
+	char path[1024];
+	char filename[1024];
 	int rc = 0;
 
 	printf("Reading rules from '%s'...", dir);
@@ -37,37 +35,55 @@ int readrules(exp_tree_t** rules, char *dir)
 #ifdef DEBUG_2
 	printf("\n");
 #endif
-	if ((dirp = opendir(dir))) {
-		if (chdir(dir) == -1)
-			fail("directory change failed");
-		for (dp = readdir(dirp); dp; dp = readdir(dirp)) {
-			if (*(dp->d_name) != '.') {
+
+	/*
+	 * Originally, this code relied on the OS
+	 * to list the files in the rulefile directories.
+	 * This worked, however there was a problem:
+	 * it seems depending on the OS the files were shown in
+	 * varying orders, leading to differing results.
+	 * So now (2014-01-26) there are "_index" 
+	 * files that explicitly hardcode the loading order.
+	 *
+	 * For testing purposes, the following should hold:
+	 *		]=> diff(x^x^x, x)
+	 * 		x ^ (x ^ x + x) * log(x) * (1 + log(x)) + x ^ ((x ^ x + x) - 1
+	 */
+
+	sprintf(path, "%s/_index", dir);
+	if ((index = fopen(path, "r"))) {
+		for (;;) {
+			if (feof(index))
+				break;
+			fscanf(index, "%s", filename);
+
+			if (!*filename)
+				break;
+
+			sprintf(path, "%s/%s", dir, filename);
 #ifdef DEBUG_2
-				printf("Reading rule-file '%s'...\n", dp->d_name);
+			printf("Reading rule-file '%s'...\n", path);
 #endif
-				if ((f = fopen(dp->d_name, "r"))) {
-					while (1) {
-						if (!fgets(lin, 1024, f))
-							break;
-						/* skips comments and blanks ... */
-						if (!lin[1] || !*lin || *lin == '%')
-							continue;
-						else {
-							lin[strlen(lin) - 1] = 0;
-							rule(lin, rules, &rc);
-						}
+			if ((f = fopen(path, "r"))) {
+				while (1) {
+					if (!fgets(lin, 1024, f))
+						break;
+					/* skips comments and blanks ... */
+					if (!lin[1] || !*lin || *lin == '%')
+						continue;
+					else {
+						lin[strlen(lin) - 1] = 0;
+						rule(lin, rules, &rc);
 					}
-					fclose(f);
-				} else
-					printf("\nCouldn't open rule-file '%s'\n", dp->d_name);
-			}
+				}
+				fclose(f);
+			} else
+				printf("\nCouldn't open rule-file '%s'\n", path);
 		}
-		if (chdir("..") == -1)
-			fail("directory change failed");
-		closedir(dirp);
 		printf("Done.\n");
+		fclose(index);
 	} else
-		printf("\nCouldn't open rules directory '%s'\n", dir);
+		printf("\nCouldn't open index file for rules directory '%s'\n", dir);
 
 	return rc;	/* rule count */
 }
