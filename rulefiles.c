@@ -47,7 +47,7 @@ int readrules(exp_tree_t** rules, char *dir)
 	 *
 	 * For testing purposes, the following should hold:
 	 *		]=> diff(x^x^x, x)
-	 * 		x ^ (x ^ x + x) * log(x) * (1 + log(x)) + x ^ ((x ^ x + x) - 1
+	 * 		x ^ (x ^ x + x) * log(x) * (1 + log(x)) + x ^ ((x ^ x + x) - 1)
 	 */
 
 	sprintf(path, "%s/_index", dir);
