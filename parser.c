@@ -315,7 +315,7 @@ exp_tree_t mul_expr()
 	 */
 	if (!is_mul_op((oper = peek()).type)) {
 		if (indx < tok_count) {
-			if (valid_tree(child2 = unary_expr(1))) {
+			if (valid_tree(child2 = pow_expr(1))) {
 				tree = new_exp_tree(MULT, NULL);
 				impmul = 1;
 				#ifdef IMPMUL_DEBUG
@@ -373,7 +373,7 @@ exp_tree_t mul_expr()
 					printf("trying special (tokindx=%d/%d)...\n", indx, tok_count);
 					//getchar();
 				#endif
-				if (valid_tree(child = unary_expr(1))) {
+				if (valid_tree(child = pow_expr(1))) {
 					oper.type = TOK_MUL;
 					impmul = 1;
 					#ifdef IMPMUL_DEBUG
@@ -400,6 +400,8 @@ exp_tree_t mul_expr()
 				break;
 			}
 			++indx;	/* eat add-op */
+		} else {
+			new = new_exp_tree(MULT, NULL);
 		}
 
 		new_ptr = alloc_exptree(new);
