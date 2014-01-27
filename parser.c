@@ -294,7 +294,7 @@ exp_tree_t sum_expr()
 	return *tree_ptr;
 }
 
-#define IMPMUL_DEBUG
+/* #define IMPMUL_DEBUG */
 
 /* mul_expr := pow_expr { ( mul-op signed_expr) | (pow_expr) } */
 exp_tree_t mul_expr()
