@@ -294,6 +294,8 @@ exp_tree_t sum_expr()
 	return *tree_ptr;
 }
 
+#define IMPMUL_DEBUG
+
 /* mul_expr := pow_expr { ( mul-op signed_expr) | (pow_expr) } */
 exp_tree_t mul_expr()
 {
@@ -316,9 +318,11 @@ exp_tree_t mul_expr()
 			if (valid_tree(child2 = unary_expr(1))) {
 				tree = new_exp_tree(MULT, NULL);
 				impmul = 1;
-				printf("IMPMUL\n");
-				printout_tree(child2);
-				printf("\n");
+				#ifdef IMPMUL_DEBUG
+					printf("IMPMUL\n");
+					printout_tree(child2);
+					printf("\n");
+				#endif
 			} else {
 				return child;
 			}
@@ -362,7 +366,6 @@ exp_tree_t mul_expr()
 		 * as in x log(x) or 5x
 		 * -- or the the end of this construction...
 		 */
-#define IMPMUL_DEBUG
 		impmul = 0;
 		if (!is_mul_op((oper = peek()).type)) {
 			if (indx < tok_count) {
@@ -373,7 +376,9 @@ exp_tree_t mul_expr()
 				if (valid_tree(child = unary_expr(1))) {
 					oper.type = TOK_MUL;
 					impmul = 1;
-					printf("IMPMUL\n");
+					#ifdef IMPMUL_DEBUG
+						printf("IMPMUL\n");
+					#endif
 				} else {
 					#ifdef IMPMUL_DEBUG
 						printf("no\n");
