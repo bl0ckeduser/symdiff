@@ -458,10 +458,23 @@ int optimize(exp_tree_t *et)
 		}
 	}
 
+	/*
+	 * 2014-04-09
+	 *
+	 * There was a bug here.
+	 *	 ]=> C + B * A + A
+	 *	 A * (1 + C + B)
+	 *
+	 * should be fixed now:
+	 *	 ]=> C + B * A + A
+	 *	 C + A * (1 + B)
+	 */
+
 	/* A + B * A => A * (1 + B) */
 	if (et->child_count >= 2
 		&& et->head_type == ADD) {
 		chk = 0;
+
 		for (i = 0; i < et->child_count; ++i)
 			if (et->child[i]->head_type == MULT) {
 				chk = 1;
@@ -479,20 +492,29 @@ int optimize(exp_tree_t *et)
 							if (sametree(cancel, below->child[e])) {
 								/* there ! cancel factor from term */
 
+								exp_tree_t *new_sum = alloc_exptree(new_exp_tree(ADD, NULL));
+
 								make_tree_number(below->child[e], 1);
+								add_child(new_sum, copy_tree(below));
+								make_tree_number(below, 0);
+
 								/* cancel identical terms => 1 */
 								cancel = copy_tree(cancel);
 								for (r = 0; r < et->child_count; ++r)
-									if (sametree(et->child[r], cancel))
+									if (sametree(et->child[r], cancel)) {
 										make_tree_number(et->child[r], 1);
+										add_child(new_sum, copy_tree(et->child[r]));
+										make_tree_number(et->child[r], 0);
+									}
+
 								/* make new product tree */
 								new = new_exp_tree(MULT, NULL);
 								new_ptr = alloc_exptree(new);
 								add_child(new_ptr, cancel);
-								add_child(new_ptr, copy_tree(et));
-						
-								/* transpose */
-								memcpy(et, new_ptr, sizeof(exp_tree_t));
+								add_child(new_ptr, copy_tree(new_sum));
+								
+								add_child(et, new_ptr);						
+
 								return(1);
 							}
 						}
