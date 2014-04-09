@@ -1,3 +1,18 @@
+commit	6b9f1e9fd92b20d5a7d8d5aa507a3033dc0fe372
+dated	"Sun Jan 26 20:21:00 2014 -0500",
+corresponds to version 1.1 of the closed-source GUI,
+which was compiled on "Sun Jan 26 21:05:39 EST 2014".
+
+this also corresponds to windows 8 GUI version 1.2.0.0,
+published January 29, 2014.
+
+this also corresponds to GUI versions 1.2 and 1.3
+
+the new feature is: support for implicit multiplication syntax
+like 5x instead of 5*x, (1+x)(1+x)^2 instead of (1+x)*(1+x)^2, etc.
+
+-----------------------------------------------------------------------------
+
 commit 	43a52bf02adecf0b64838260e905c6514105c646,
 dated 	"Wed Nov 6 19:12:03 2013 -0500",
 corresponds to version 1.0 of the closed-source GUI, 
@@ -7,14 +22,3 @@ this also corresponds to version 1.0.0.2 of the windows 8 version of the GUI,
 published July 5, 2013.
 
 -----------------------------------------------------------------------------
-
-commit	6b9f1e9fd92b20d5a7d8d5aa507a3033dc0fe372
-dated	"Sun Jan 26 20:21:00 2014 -0500",
-corresponds to version 1.1 of the closed-source GUI,
-which was compiled on "Sun Jan 26 21:05:39 EST 2014".
-
-a windows 8 version is pending publication as of writing.
-
-the new feature is: support for implicit multiplication syntax
-like 5x instead of 5*x, (1+x)(1+x)^2 instead of (1+x)*(1+x)^2, etc.
-
