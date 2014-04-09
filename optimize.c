@@ -431,6 +431,7 @@ int optimize(exp_tree_t *et)
 	 * Remove 1's from products, 0's from additions,
 	 * 0's from subtractions 
 	 */
+filter_zeroes:
 	if ((et->head_type == MULT
 	|| et->head_type == ADD
 	|| et->head_type == SUB)
@@ -513,7 +514,14 @@ int optimize(exp_tree_t *et)
 								add_child(new_ptr, cancel);
 								add_child(new_ptr, copy_tree(new_sum));
 								
-								add_child(et, new_ptr);						
+								add_child(et, new_ptr);		
+
+								/*
+								 * The above makes lots of useless 0 terms
+								 * as a side effect, so get rid of them.
+								 * Oterhwise, the GUI has weird-looking steps.
+								 */				
+								goto filter_zeroes;
 
 								return(1);
 							}
