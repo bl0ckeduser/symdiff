@@ -1,3 +1,12 @@
+commit	eea3b5979420a200e29ffcc225fd11dfb61bf2b7
+dated	Wed Apr 9 13:01:25 2014 -0400
+
+corresponds to version 1.4 of the closed-source GUI,
+compiled on "Thu Apr 10 17:35:03 EDT 2014"
+
+fixes algebraic simplification bug
+
+-----------------------------------------------------------------------------
 commit	6b9f1e9fd92b20d5a7d8d5aa507a3033dc0fe372
 dated	"Sun Jan 26 20:21:00 2014 -0500",
 corresponds to version 1.1 of the closed-source GUI,
