@@ -137,28 +137,6 @@ struct bpf_kw {
 	char tok;
 };
 
-#define KW_COUNT 16
-
-static struct bpf_kw kw_tab[] = 
-{
-	{ "if", TOK_IF },
-	{ "while", TOK_WHILE },
-	{ "int", TOK_INT },
-	{ "echo", TOK_ECHO },
-	{ "draw", TOK_DRAW },
-	{ "wait", TOK_WAIT },
-	{ "cmx", TOK_CMX },
-	{ "cmy", TOK_CMY },
-	{ "mx", TOK_MX },
-	{ "my", TOK_MY },
-	{ "outputdraw", TOK_OD },
-	{ "else", TOK_ELSE },
-	{ "goto", TOK_GOTO },
-	{ "proc", TOK_PROC },
-	{ "return", TOK_RET },
-	{ "for", TOK_FOR }
-};
-
 /* routines */
 
 extern int is_add_op(char type);

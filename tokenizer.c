@@ -407,17 +407,6 @@ token_t* tokenize(char *in_buf)
 			}
 			fail("tokenization failed");
 		} else {
-			/* spot keywords. they are initially
-			 * recognized as identifiers. */
-			if (c.token == TOK_IDENT) {
-				strncpy(buf2, p, max);
-				buf2[max] = 0;
-				for (i = 0; i < KW_COUNT; i++) {
-					if (!strcmp(buf2, kw_tab[i].str))
-						c.token = kw_tab[i].tok;
-				}
-			}
-
 			/* comments */
 			if (c.token == C_CMNT_OPEN) {
 				if (in_comment == 2)
