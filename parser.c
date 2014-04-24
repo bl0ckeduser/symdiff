@@ -9,6 +9,9 @@
  * BUGS: seems to get into infinite recursions
  * or segfaults on certain occurences of 
  * invalid syntax
+ * 
+ * The above has been addressed to some extent
+ * on 2014-04-24.
  */
 
 #include <stdio.h>
@@ -215,6 +218,18 @@ exp_tree_t expr()
 	token_t oper;
 	token_t tok;
 	int save = indx;
+
+	/*
+	 * 2014-04-24
+	 *
+	 * parser segfaulted on "diff(".
+	 *
+	 * knipil says:
+	 * "Make expr() bail out when there's no tokens left,
+	 * and the problem will go away."
+	 */
+	if (indx >= tok_count)
+		return null_tree;
 
 	/* sum_expr ['=' sum_expr] */
 	if (valid_tree(subtree = sum_expr())) {
