@@ -84,9 +84,10 @@ int main(int argc, char** argv)
 	 */
 	printf("\n-------------------------------------------------------\n");
 	printf("Welcome to SYMDIFF, a program trained to compute \n");
-	printf("symbolic derivatives. You may enter requests such as: \n");
-	printf("\t diff(3cos(x^2)^3 + x^x, x)\n");
-	printf("and quickly obtain the symbolic result.\n\n");
+	printf("symbolic derivatives. You may enter requests such as: \n\n");
+	printf("\t diff(3cos(x^2)^3 + x^x, x)\n\n");
+	printf("and quickly obtain the symbolic result.\n");
+	printf("(This code was speed-tuned on an ancient 400 MHz machine.)\n");
 	printf("\nYou will be given a prompt. As always, you can use\n");
 	printf("CTRL-C to exit.\n");
 	printf("\n-------------------------------------------------------\n");
