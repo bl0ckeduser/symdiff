@@ -75,8 +75,22 @@ int main(int argc, char** argv)
 	 */
 	prc = readrules(pres_rules, "pres-rules");
 
-	printf("Welcome to the REPL.\n");
-	printf("As always, ctrl-C to exit.\n");
+	/*
+	 * 2014-04-24
+	 *
+	 * It's helpful to tell the user what
+	 * the program actually does and what
+	 * its syntax is. (thanks knipil)
+	 */
+	printf("\n-------------------------------------------------------\n");
+	printf("Welcome to SYMDIFF, a program trained to compute \n");
+	printf("symbolic derivatives. You may enter requests such as: \n");
+	printf("\t diff(3cos(x^2)^3 + x^x, x)\n");
+	printf("and quickly obtain the symbolic result.\n\n");
+	printf("\nYou will be given a prompt. As always, you can use\n");
+	printf("CTRL-C to exit.\n");
+	printf("\n-------------------------------------------------------\n");
+	printf("\n");
 
 	while (1) {
 
