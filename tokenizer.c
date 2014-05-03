@@ -7,7 +7,6 @@
 
 /* TODO: cleanup some of the more mysterious
  *       parts of the code...
- * FIXME: the automatons never get free()'d !
  */
 
 #include "tokenizer.h"
