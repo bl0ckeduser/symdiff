@@ -123,14 +123,6 @@ static char* tok_nam[] = {
 	"TOK_PIPE"
 };
 
-
-/* keywords */
-
-struct bpf_kw {
-	char *str;
-	char tok;
-};
-
 /* routines */
 
 extern int is_add_op(char type);
