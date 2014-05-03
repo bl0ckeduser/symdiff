@@ -207,7 +207,8 @@ int treematch(exp_tree_t *a, exp_tree_t *b, dict_t* d)
 		}
 	}
 
-	/* (MATCH_FUNC:foo (ADD (VARIABLE:x) (NUMBER:1)))
+	/*
+	 * (MATCH_FUNC:foo (ADD (VARIABLE:x) (NUMBER:1)))
 	 * 
 	 * MATCH_FUNC: match a function and then do standard
 	 * matching on its children
@@ -302,7 +303,8 @@ restart:
 				dict->count = 0;
 
 			if (treematch(tree, rules[i]->child[0], dict)) {
-				/* It matches. Do the correspoding substitution
+				/*
+				 * It matches. Do the correspoding substitution
 				 * and make a little printout of the form:
 				 * [rule number] original tree -> substituted
 				 *				  tree
@@ -310,15 +312,15 @@ restart:
 				++mc;
 				m = 1;
 
-#ifdef DEBUG_2
-				printf("[%d]: ", i);	/* show rule number */
-				fflush(stdout);
-				/* Show original tree */
-				printout_tree_infix(*tree);
-				fflush(stdout);
-				printf(" => ");
-				fflush(stdout);
-#endif
+				#ifdef DEBUG_2
+					printf("[%d]: ", i);	/* show rule number */
+					fflush(stdout);
+					/* Show original tree */
+					printout_tree_infix(*tree);
+					fflush(stdout);
+					printf(" => ");
+					fflush(stdout);
+				#endif
 
 				if (dict->count) {
 					/* Substitution with symbols */
@@ -330,28 +332,30 @@ restart:
 					*tree = *copy_tree(rules[i]->child[1]);
 				}
 
-#ifdef DEBUG_2
-				/* Show substituted tree */
-				printout_tree_infix(*tree);
-				fflush(stdout);
-				printf("\n");
-#endif
-
-#ifdef DEBUG_2
-				if (dict->count) {
-					printf("dictionary: ");
-					printout_dict(dict);
+				#ifdef DEBUG_2
+					/* Show substituted tree */
+					printout_tree_infix(*tree);
+					fflush(stdout);
 					printf("\n");
-				}
-#endif
+				#endif
+
+				#ifdef DEBUG_2
+					if (dict->count) {
+						printf("dictionary: ");
+						printout_dict(dict);
+						printf("\n");
+					}
+				#endif
 				break;
 			}
 		}
 	/* If any of the rules matched, try them all again. */
 	} while (mc);
 
-	/* Do matching loop on all children. If it succeeds,
-	 * do the loop again on this tree. */
+	/*
+	 * Do matching loop on all children. If it succeeds,
+	 * do the loop again on this tree. 
+	 */
 	for (i = 0; i < tree->child_count; ++i)
 		if (matchloop(rules, rc, tree->child[i])) {
 			m = 1;
