@@ -2,9 +2,6 @@
 
 /* Tree helper routines */
 
-/* FIXME: crazy cgc_mallocs and memcpys, no garbage collection (!)
- *        a modern OS should clean up, but nevertheless, yeah */
-
 #include "tree.h"
 #include "tokenizer.h"
 #include "tokens.h"
