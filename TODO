@@ -1,0 +1,15 @@
+Tue, May 13, 2014 at 4:34 AM 
+
+"I have just installed your app which is really good, but it didn't 
+solve the equations till the end. Example : cos(x)^2 + sin(x)^2 which 
+is simply equals to 1, but as your app try to solve it too which I 
+think is good should conclude with zero as it is not. I think you also 
+have to focus on arithmetic part of it."
+
+---
+
+I will probably just have to change the code so that negative signs
+get moved to numbers. Differentiating "cos(x)^2+sin(x)^2" gives
+"cos(x) * (2 * -sin(x) + 2 * sin(x))" as final result, but  "cos(x)
+(2sin(x) +-2*sin(x))"  (with the sign moved) successfully simplifies
+to 0.
