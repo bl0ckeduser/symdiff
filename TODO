@@ -13,3 +13,10 @@ get moved to numbers. Differentiating "cos(x)^2+sin(x)^2" gives
 "cos(x) * (2 * -sin(x) + 2 * sin(x))" as final result, but  "cos(x)
 (2sin(x) +-2*sin(x))"  (with the sign moved) successfully simplifies
 to 0.
+
+=====================================================================
+
+Thu, May 22, 2014 at 11:48 AM
+
+"lnx" (for "ln(x)") syntax expected, assumed and desired
+
