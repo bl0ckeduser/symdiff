@@ -75,9 +75,9 @@ This program is based on three things:
 	   this program's syntax. Credit is given in the rule-file's
 	   comments, of course.
 
-	3) My wannabe parser/compiler project from last december
+	3) My wannabe parser/compiler project from december 2012
 		(itself based on my wannabe-regexes from
-		 last august, which handle the lexing)
+		 august 2012, which handle the lexing)
 	   This makes the infix REPL interface possible.
 	   The bulk of the code in this program is from that project.
 
