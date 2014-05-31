@@ -16,6 +16,10 @@ diff(e^(cos(x) * sin(x)), x)
 diff((3*x^2 + 5*x^3) / (3*x^5 + 4*x^6), x)
 diff(tan(x^2)^x, x)
 diff(cos(x^x)^sin(x + log(x)), x)
+
+# there was a bug where this one would stall,
+# at some point in june 2013 when the program was
+# in early development
 diff(sin(x^x)^x / cos(e^x + 3*x^2), x)
 
 # There was an error in optimizer.c
@@ -35,6 +39,32 @@ diff(sin(x^x)^x / cos(e^x + 3*x^2), x)
 
 diff(x/(1-x), x)
 
-# This one is currently broken in the CLI version
+# !!! This one is currently broken in the CLI version
 # but not in the GUI version, not sure why
 # diff((5*x^3 + 4*x^2) / (e^x + cos(x) * 3*x^2), x)
+
+diff(x^cos(x)^sin(x) * log(x^3), x)
+
+diff(log(log(log(x))), x)
+diff(sin(log(x + x^x)), x)
+
+# These are from a book
+diff(arctan(u), u)
+diff(e^sec(3*t), t)
+diff(x * arctan(sqrt(x)), x)
+diff(log((x+1)/sqrt(x-2)), x)
+
+# big-ass polynomial
+diff((2*x+1)^5 * (x^3-x+1)^4, x)
+
+diff(-5cos(1+3x)^4, x)
+
+# triggers quotient rule
+diff( (cos(x^2)^2 + 5x^3) / (3x^2 + ln(1/x)), x)
+
+# !!! this one doesn't go well, maybe double check with a symbolic CAS
+# diff(sqrt(3x^x + log(3x)) / (3x^5 + 2x^3 + sin(x)), x)
+
+diff(cos(x^x)^(x/sqrt(x)), x)
+
+diff(-5^(7-3x), x)
