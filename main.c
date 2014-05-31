@@ -89,6 +89,7 @@ int main(int argc, char** argv)
 	 * the program actually does and what
 	 * its syntax is. (thanks knipil)
 	 */
+	#ifndef FLOATEVAL
 	printf("\n-------------------------------------------------------\n");
 	printf("Welcome to SYMDIFF, a program trained to compute \n");
 	printf("symbolic derivatives. You may enter requests such as: \n\n");
@@ -99,6 +100,7 @@ int main(int argc, char** argv)
 	printf("CTRL-C to exit.\n");
 	printf("\n-------------------------------------------------------\n");
 	printf("\n");
+	#endif
 
 	while (1) {
 
