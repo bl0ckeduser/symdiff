@@ -1,0 +1,40 @@
+diff(cos(x), x)
+diff(sin(x), x)
+diff(x^x, x)
+diff(x^x^x, x)
+diff(5sin(x^3)^2, x)
+diff(-x, x)
+diff(sin(x * cos(x + log(x))), x)
+diff(log((1+x)*(1+x^2)^2*(1+x^3)^3), x)
+diff(e^u + e^(cos(u) * sin(u)), u)
+diff(z^log(sqrt(z)) * z / cos(z), z)
+diff((x^2)^(1/3), x)
+diff(sin(x)^2, x)
+diff(1/x^2, x)
+diff((x-5)^2 / (4*x+9)^3, x)
+diff(e^(cos(x) * sin(x)), x)
+diff((3*x^2 + 5*x^3) / (3*x^5 + 4*x^6), x)
+diff(tan(x^2)^x, x)
+diff(cos(x^x)^sin(x + log(x)), x)
+diff(sin(x^x)^x / cos(e^x + 3*x^2), x)
+
+# There was an error in optimizer.c
+# that is demonstrated by this case. 
+# it was fixed by commit 18374d48aaa48... on 2014-04-09
+# For fun, to reproduce the error, you can do:
+#	$ git checkout b017f0c2bb optimize.c
+#	$ ./sanitycheck.sh 
+#
+# Eventually you will get this output:
+#
+#	]=> x / (1 + -1 * x) ^ 2
+#	FLOATEVAL: expected: 0.250000
+#	FLOATEVAL: result: 0.750000
+#	FLOATEVAL: error: 66.666683 %
+#	!!! insane error !!!
+
+diff(x/(1-x), x)
+
+# This one is currently broken in the CLI version
+# but not in the GUI version, not sure why
+# diff((5*x^3 + 4*x^2) / (e^x + cos(x) * 3*x^2), x)

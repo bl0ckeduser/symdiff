@@ -32,6 +32,11 @@
 #include "apply-rules.h"
 #include "rulefiles.h"
 #include "gc.h"
+#include <math.h>
+
+extern double float_eval(exp_tree_t *, double val);
+extern double float_diff(exp_tree_t *, double val);
+extern char* get_tok_str(token_t t);
 
 int main(int argc, char** argv)
 {
@@ -44,6 +49,8 @@ int main(int argc, char** argv)
 	int prc;
 	char lin[1024];
 	gcarray_t *setup, *iter;
+	double fe_expected, fe_result, fe_error;
+	int fe_run;
 
 	extern void fail(char*);
 	extern int unwind_expos(exp_tree_t *et);
@@ -174,6 +181,15 @@ int main(int argc, char** argv)
 			 * reduce it using the rules.
 			 */
 
+			#ifdef FLOATEVAL
+				fe_run = 0;
+				if (tree.tok
+				    && !strcmp(get_tok_str(*(tree.tok)), "diff")) {
+					fe_run = 1;
+					fe_expected = float_diff(tree.child[0], 3.0);
+				}
+			#endif
+
 			/* Print final result if any reductions
 			 * succeeded */
 			if (apply_rules_and_optimize(rules, rc, &tree)) {
@@ -187,6 +203,21 @@ int main(int argc, char** argv)
 				printf("\n");
 #endif
 			}
+
+			#ifdef FLOATEVAL
+				if (fe_run) {
+					fe_result = float_eval(&tree, 3.0);
+					fe_error = fabs(fe_expected - fe_result) / fe_result * 100.0;
+					printf("FLOATEVAL: expected: %f\n", fe_expected);
+					printf("FLOATEVAL: result: %f\n", fe_result);
+					printf("FLOATEVAL: error: %f %%\n", fe_error);
+					/* quite rough and arbitrary but heh */
+					if (fe_error > 6.0) {
+						printf("!!! insane error !!!\n");
+						exit(1);
+					}
+				}
+			#endif
 		}
 
 		gca_cleanup(iter);

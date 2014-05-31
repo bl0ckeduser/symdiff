@@ -20,3 +20,9 @@ Thu, May 22, 2014 at 11:48 AM
 
 "lnx" (for "ln(x)") syntax expected, assumed and desired
 
+=================
+
+bug in CLI version:
+
+diff((5*x^3 + 4*x^2) / (e^x + cos(x) * 3*x^2), x)
+
