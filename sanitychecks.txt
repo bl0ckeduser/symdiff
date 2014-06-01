@@ -126,3 +126,25 @@ diff( (cos(x^2)^2 + 5x^3) / (3x^2 + ln(1/x)), x)
 
 diff(-5^(7-3x), x)
 
+# a few from http://www.the-mathroom.ca/freebs/cald6/cald6.htm
+
+diff((x^3+5)/(2x+1), x)
+diff((2x^5-7x^2)^3, x)
+diff(-5cos(3x+1)^4, x)
+diff(tan(3x)^2 sin(5x), x)
+
+diff(sin(6x+1)^2 / sec(x-3), x)
+
+# slightly adapted
+diff(3arcsin((x^2+5)/100), x)
+diff(arccos((6x-7)/100), x)
+
+diff(ln(sin(5x)^2), x)
+
+# some from http://www.math.brown.edu/utra/derivrules.html
+
+diff(x^2 + 3x - 2tan(x), x)
+diff((x^2+3x-2tan(x))/sqrt(x), x)
+diff(3(x^2+2)^2, x)
+
+diff((x sin(x)) / e^cos(x), x)
