@@ -51,6 +51,7 @@ int main(int argc, char** argv)
 	gcarray_t *setup, *iter;
 	double fe_expected, fe_result, fe_error;
 	int fe_run;
+	double fe_eval_point = 2.0;
 
 	extern void fail(char*);
 	extern int unwind_expos(exp_tree_t *et);
@@ -158,15 +159,19 @@ int main(int argc, char** argv)
 		tree = *((parse(tokens)).child[0]);
 
 		#ifdef DEBUG_2
-			/* Print-out raw parse-tree in
-			 * prefix (Lisp-style) notation */
+			/*
+			 * Print-out raw parse-tree in
+			 * prefix (Lisp-style) notation
+			 */
 			printout_tree(tree);
 			fputc('\n', stderr);
 		#endif
 
 		#ifdef DEBUG
-			/* Printout parse in standard infix
-			 * notation */
+			/*
+			 * Printout parse in standard infix
+			 * notation
+			 */
 			printout_tree_infix(tree);
 			fputc('\n', stderr);
 		#endif
@@ -191,7 +196,7 @@ int main(int argc, char** argv)
 				if (tree.tok
 				    && !strcmp(get_tok_str(*(tree.tok)), "diff")) {
 					fe_run = 1;
-					fe_expected = float_diff(tree.child[0], 3.0);
+					fe_expected = float_diff(tree.child[0], fe_eval_point);
 				}
 			#endif
 
@@ -214,7 +219,7 @@ int main(int argc, char** argv)
 
 			#ifdef FLOATEVAL
 				if (fe_run) {
-					fe_result = float_eval(&tree, 3.0);
+					fe_result = float_eval(&tree, fe_eval_point);
 					fe_error = fabs(fe_expected - fe_result) / fe_result * 100.0;
 					printf("FLOATEVAL: error: %f %%\n", fe_error);
 					if (isnan(fe_error)) {
@@ -222,7 +227,7 @@ int main(int argc, char** argv)
 						exit(1);
 					}
 					/* quite rough and arbitrary but heh */
-					if (fe_error > 6.0) {
+					if (fabs(fe_error) > 10.0) {
 						printf("!!! insane error !!!\n");
 						printf("FLOATEVAL: expected: %f\n", fe_expected);
 						printf("FLOATEVAL: result: %f\n", fe_result);

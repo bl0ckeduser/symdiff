@@ -1,7 +1,6 @@
-diff(cos(x), x)
-diff(sin(x), x)
-diff(x^x, x)
-diff(x^x^x, x)
+diff(cos(x), x) diff(sin(x), x) diff(x^x, x)
+# inconclusive
+# diff(x^x^x, x)
 diff(5sin(x^3)^2, x)
 diff(-x, x)
 diff(sin(x * cos(x + log(x))), x)
@@ -24,7 +23,9 @@ diff((3*x^2 + 5*x^3) / (3*x^5 + 4*x^6), x)
 # there was a bug where this one would stall,
 # at some point in june 2013 when the program was
 # in early development
-diff(sin(x^x)^x / cos(e^x + 3*x^2), x)
+
+# inconclusive
+# diff(sin(x^x)^x / cos(e^x + 3*x^2), x)
 
 # There was an error in optimizer.c
 # that is demonstrated by this case. 
@@ -50,14 +51,17 @@ diff(x/(1-x), x)
 # inconclusive
 # diff(x^cos(x)^sin(x) * log(x^3), x)
 
-diff(log(log(log(x))), x)
+# inconclusive
+# diff(log(log(log(x))), x)
 diff(sin(log(x + x^x)), x)
 
 # These are from a book
 diff(arctan(u), u)
 diff(e^sec(3*t), t)
 diff(x * arctan(sqrt(x)), x)
-diff(log((x+1)/sqrt(x-2)), x)
+
+#inconclusive
+#diff(log((x+1)/sqrt(x-2)), x)
 
 # big-ass polynomial
 diff((2*x+1)^5 * (x^3-x+1)^4, x)
