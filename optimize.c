@@ -23,8 +23,13 @@
 #include <string.h>	/* memcpy */
 
 #ifdef DEBUG
-	#define return(X) { printf("leaving optimizer at line %d\n", \
-					 		__LINE__); return(X); }
+	#define return(X) { printf("[DEBUG] leaving optimizer at line %d\n", \
+				    __LINE__); \
+			    printf("[DEBUG] fe1: %f, fe2: %f\n", fe_init, float_eval(et, 2.0)); \
+			    if (fabs(fe_init - float_eval(et, 2.0)) > 1.0) \
+				 printf("[DEBUG] probably bad code at line %d of optimize.c\n", __LINE__); \
+			    return(X); \
+			  }
 #endif
 
 extern int tok2int(token_t *t);
@@ -123,7 +128,13 @@ int optimize(exp_tree_t *et)
 	exp_tree_t *herp;
 	exp_tree_t *derp;
 	exp_tree_t *right_child;
+	double fe_init;
 	extern token_t* make_fake_tok(char *s);
+	extern double float_eval(exp_tree_t *, double val);
+
+	#ifdef DEBUG
+		fe_init = float_eval(et, 2.0);
+	#endif
 
 	for (i = 0; i < et->child_count; i++) {
 		did |= optimize(et->child[i]);

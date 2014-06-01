@@ -5,8 +5,6 @@
 #include <string.h>
 #include <stdio.h>
 
-#ifdef FLOATEVAL
-
 char buf[1024];
 
 extern char* get_tok_str(token_t t);
@@ -24,6 +22,10 @@ double my_cot(double x)
 double my_csc(double x)
 {
 	return 1 / sin(x);
+}
+
+double give_a_nan(double x) {
+	return (float)1.0/0.0;
 }
 
 double float_eval(exp_tree_t *t, double val)
@@ -50,7 +52,8 @@ double float_eval(exp_tree_t *t, double val)
 		{ "sin", &sin },
 		{ "sqrt", &sqrt },
 		{ "tan", &tan },
-		{ "sec", &my_sec }
+		{ "sec", &my_sec },
+		{ "D", &give_a_nan }
 	};
 
 	/*
@@ -116,6 +119,5 @@ double float_diff(exp_tree_t *t, double val)
 	return dy/dx;
 }
 
-#endif
 
 
