@@ -55,9 +55,9 @@ int main(int argc, char** argv)
 	extern void fail(char*);
 	extern int unwind_expos(exp_tree_t *et);
 
-#ifdef LEAK_STRESS_TEST
-	strcpy(lin, "diff(z^z^z, z)");
-#endif
+	#ifdef LEAK_STRESS_TEST
+		strcpy(lin, "diff(z^z^z, z)");
+	#endif
 
 	cgc_set(setup = new_gca());
 
@@ -90,29 +90,31 @@ int main(int argc, char** argv)
 	 * its syntax is. (thanks knipil)
 	 */
 	#ifndef FLOATEVAL
-	printf("\n-------------------------------------------------------\n");
-	printf("Welcome to SYMDIFF, a program trained to compute \n");
-	printf("symbolic derivatives. You may enter requests such as: \n\n");
-	printf("\t diff(3cos(x^2)^3 + x^x, x)\n\n");
-	printf("and quickly obtain the symbolic result.\n");
-	printf("(This code was speed-tuned on an ancient 400 MHz machine.)\n");
-	printf("\nYou will be given a prompt. As always, you can use\n");
-	printf("CTRL-C to exit.\n");
-	printf("\n-------------------------------------------------------\n");
-	printf("\n");
+		printf("\n-------------------------------------------------------\n");
+		printf("Welcome to SYMDIFF, a program trained to compute \n");
+		printf("symbolic derivatives. You may enter requests such as: \n\n");
+		printf("\t diff(3cos(x^2)^3 + x^x, x)\n\n");
+		printf("and quickly obtain the symbolic result.\n");
+		printf("(This code was speed-tuned on an ancient 400 MHz machine.)\n");
+		printf("\nYou will be given a prompt. As always, you can use\n");
+		printf("CTRL-C to exit.\n");
+		printf("\n-------------------------------------------------------\n");
+		printf("\n");
 	#endif
 
 	while (1) {
 
-#ifndef LEAK_STRESS_TEST
-		/* Print prompt, read line */
-		printf("]=> ");
-		fflush(stdout);
-		if (!fgets(lin, 1024, stdin)) {
-			printf("\n");	/* (stops gracefully on EOF) */
-			break;
-		}
-#endif
+		#ifndef LEAK_STRESS_TEST
+			/* Print prompt, read line */
+			#ifndef FLOATEVAL
+				printf("]=> ");
+				fflush(stdout);
+			#endif
+			if (!fgets(lin, 1024, stdin)) {
+				printf("\n");	/* (stops gracefully on EOF) */
+				break;
+			}
+		#endif
 
 		/* Skip empty lines. The parsing code really
 		 * hates them, and by "really" I mean segfault. */
@@ -143,31 +145,32 @@ int main(int argc, char** argv)
 		/* Lex the line */
 		tokens = tokenize(lin);
 
-#ifdef DEBUG_2
-		/* Display the tokens */
-		for (i = 0; tokens[i].start; i++) {
-			fprintf(stderr, "%d: %s: ", i, tok_nam[tokens[i].type]);
-			tok_display(stderr, tokens[i]);
-			fputc('\n', stderr);
-		}
-#endif
+		#ifdef DEBUG_2
+			/* Display the tokens */
+			for (i = 0; tokens[i].start; i++) {
+				fprintf(stderr, "%d: %s: ", i, tok_nam[tokens[i].type]);
+				tok_display(stderr, tokens[i]);
+				fputc('\n', stderr);
+			}
+		#endif
 
 		/* Parse the tokens into an expression-tree */
 		tree = *((parse(tokens)).child[0]);
 
-#ifdef DEBUG_2
-		/* Print-out raw parse-tree in
-		 * prefix (Lisp-style) notation */
-		printout_tree(tree);
-		fputc('\n', stderr);
-#endif
+		#ifdef DEBUG_2
+			/* Print-out raw parse-tree in
+			 * prefix (Lisp-style) notation */
+			printout_tree(tree);
+			fputc('\n', stderr);
+		#endif
 
-#ifdef DEBUG
-		/* Printout parse in standard infix
-		 * notation */
-		printout_tree_infix(tree);
-		fputc('\n', stderr);
-#endif
+		#ifdef DEBUG
+			/* Printout parse in standard infix
+			 * notation */
+			printout_tree_infix(tree);
+			fputc('\n', stderr);
+		#endif
+
 		/*
 		 * If the expression is an equation,
 		 * it's considered a pattern-matching rule
@@ -200,24 +203,35 @@ int main(int argc, char** argv)
 					;
 				(void)apply_rules_and_optimize(pres_rules, prc,
 					&tree);
-#ifndef LEAK_STRESS_TEST
-				printout_tree_infix(tree);
-				printf("\n");
-#endif
+				
+				#ifndef FLOATEVAL
+				#ifndef LEAK_STRESS_TEST
+					printout_tree_infix(tree);
+					printf("\n");
+				#endif
+				#endif
 			}
 
 			#ifdef FLOATEVAL
 				if (fe_run) {
 					fe_result = float_eval(&tree, 3.0);
 					fe_error = fabs(fe_expected - fe_result) / fe_result * 100.0;
-					printf("FLOATEVAL: expected: %f\n", fe_expected);
-					printf("FLOATEVAL: result: %f\n", fe_result);
 					printf("FLOATEVAL: error: %f %%\n", fe_error);
+					if (isnan(fe_error)) {
+						printf("!!! inconclusive !!!\n");
+						exit(1);
+					}
 					/* quite rough and arbitrary but heh */
 					if (fe_error > 6.0) {
 						printf("!!! insane error !!!\n");
+						printf("FLOATEVAL: expected: %f\n", fe_expected);
+						printf("FLOATEVAL: result: %f\n", fe_result);
+						printf("FLOATEVAL: result tree: \n");
+						printout_tree_infix(tree);
+						printf("\n");
 						exit(1);
 					}
+					exit(0);
 				}
 			#endif
 		}

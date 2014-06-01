@@ -12,14 +12,13 @@ IFS='
 for line in `cat sanitychecks.txt | grep -v '^#'`
 do
 	echo CHECK $line
-	if ! echo $line | (./matcher 2>/dev/null >/dev/null);
+	if ! echo $line | (./matcher 2>&1);
 	then
-		echo "sanity check failed: $line"
-		echo "----------------------------"
-		echo "backlog: "
-		echo $line | ./matcher
+		echo "------------------"
+		echo "SANITY CHECK FAILED"
 		exit 1
 	fi
+	echo "......................"
 done
 
 echo "all tests happy :D"

@@ -30,11 +30,13 @@ int readrules(exp_tree_t** rules, char *dir)
 	char filename[1024];
 	int rc = 0;
 
-	printf("Reading rules from '%s'...", dir);
-	fflush(stdout);
-#ifdef DEBUG_2
-	printf("\n");
-#endif
+	#ifndef FLOATEVAL
+		printf("Reading rules from '%s'...", dir);
+		fflush(stdout);
+		#ifdef DEBUG_2
+			printf("\n");
+		#endif
+	#endif
 
 	/*
 	 * Originally, this code relied on the OS
@@ -61,9 +63,9 @@ int readrules(exp_tree_t** rules, char *dir)
 				break;
 
 			sprintf(path, "%s/%s", dir, filename);
-#ifdef DEBUG_2
-			printf("Reading rule-file '%s'...\n", path);
-#endif
+			#ifdef DEBUG_2
+				printf("Reading rule-file '%s'...\n", path);
+			#endif
 			if ((f = fopen(path, "r"))) {
 				while (1) {
 					if (!fgets(lin, 1024, f))
@@ -80,7 +82,9 @@ int readrules(exp_tree_t** rules, char *dir)
 			} else
 				printf("\nCouldn't open rule-file '%s'\n", path);
 		}
-		printf("Done.\n");
+		#ifndef FLOATEVAL
+			printf("Done.\n");
+		#endif
 		fclose(index);
 	} else
 		printf("\nCouldn't open index file for rules directory '%s'\n", dir);
@@ -98,18 +102,18 @@ void rule(char *r, exp_tree_t **rules, int* rc)
 	/* lexing */
 	tokens = tokenize(r);
 
-#ifdef DEBUG_2
-	int i;
-	/* Display the tokens */
-	for (i = 0; tokens[i].start; i++) {
-		fprintf(stderr, "%d: %s: ", i, tok_nam[tokens[i].type]);
-		tok_display(stderr, tokens[i]);
-		fputc('\n', stderr);
-	}
+	#ifdef DEBUG_2
+		int i;
+		/* Display the tokens */
+		for (i = 0; tokens[i].start; i++) {
+			fprintf(stderr, "%d: %s: ", i, tok_nam[tokens[i].type]);
+			tok_display(stderr, tokens[i]);
+			fputc('\n', stderr);
+		}
 
-	printout_tree(parse(tokens));
-	printf("\n");
-#endif
+		printout_tree(parse(tokens));
+		printf("\n");
+	#endif
 
 	/* parsing */
 	tree = *((parse(tokens)).child[0]);
@@ -124,9 +128,9 @@ void rule(char *r, exp_tree_t **rules, int* rc)
 	}
 
 	rules[(*rc)++] = alloc_exptree(tree);
-#ifdef DEBUG_2
-	printf("rule '%s' stored as %d\n", r, *rc - 1);
-#endif
+	#ifdef DEBUG_2
+		printf("rule '%s' stored as %d\n", r, *rc - 1);
+	#endif
 }
 
 
