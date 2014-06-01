@@ -44,9 +44,14 @@ diff((3*x^2 + 5*x^3) / (3*x^5 + 4*x^6), x)
 
 diff(x/(1-x), x)
 
-# !!! This one is currently broken in the CLI version
-# but not in the GUI version, not sure why
-# diff((5*x^3 + 4*x^2) / (e^x + cos(x) * 3*x^2), x)
+# This one is pretty naughty. It creates a situation
+# with a D (differentiation) tree whose argument is
+# a multiplication tree with three children.
+# Product rule can't deal directly with such a thing.
+# So the code labelled  "help product rule" in optimize.c
+# kicks in. My stupidself forgot to commit it to the opensource version
+# for a whole year.
+diff((5*x^3 + 4*x^2) / (e^x + cos(x) * 3*x^2), x)
 
 # inconclusive
 # diff(x^cos(x)^sin(x) * log(x^3), x)

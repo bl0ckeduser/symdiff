@@ -1184,6 +1184,42 @@ filter_zeroes:
 		return(1);
 	}
 
+	/* 
+	 * help product rule
+	 *
+	 * 2014-06-01:
+	 * this has been extracted from the closed-source GUI code,
+	 * version 1.0, June 13, 2013
+	 *
+	 * Well I forgot to cross-pollinate it back into
+	 * the CLI opensource version for a while
+	 */
+	if (et->head_type == FUNC
+		&& *(et->tok->start) == 'D'
+		&& et->tok->len == 1
+		&& et->child_count == 2
+		&& et->child[1]->head_type == MULT
+		&& et->child[1]->child_count > 2) {
+
+		new_ptr = alloc_exptree(new_exp_tree(MULT, NULL));
+
+		for (q = 0; q < 2; ++q) {
+			add_child(new_ptr, copy_tree(et->child[1]->child[q]));
+		}
+
+		new2_ptr =alloc_exptree(new_exp_tree(MULT, NULL));
+
+		for (q = 2; q < et->child[1]->child_count; ++q) {
+			add_child(new2_ptr, copy_tree(et->child[1]->child[q]));
+		}
+
+		et->child[1]->child_count = 2;
+		et->child[1]->child[0] = new_ptr;
+		et->child[1]->child[1] = new2_ptr;
+		
+		return(1);
+	}
+
 	/* anything times zero is 0 */
 	if (et->head_type == MULT
 		&& et->child_count > 1) {
