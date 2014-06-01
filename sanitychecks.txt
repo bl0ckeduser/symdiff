@@ -73,6 +73,7 @@ diff( (cos(x^2)^2 + 5x^3) / (3x^2 + ln(1/x)), x)
 
 # !!! this one doesn't go well, maybe double check with a symbolic CAS
 # diff(sqrt(3x^x + log(3x)) / (3x^5 + 2x^3 + sin(x)), x)
+# well it gives the right thing in the GUI
 
 # inconclusive
 # diff(cos(x^x)^(x/sqrt(x)), x)
