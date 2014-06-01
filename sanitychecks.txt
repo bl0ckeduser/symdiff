@@ -1,3 +1,7 @@
+# Fixed 2014-06-01
+diff(sqrt(3x^x + log(3x)) / (3x^5 + 2x^3 + sin(x)), x)
+
+
 diff(log(x), x)
 diff(log(x^2), x)
 diff(x^3, x)
@@ -109,6 +113,3 @@ diff( (cos(x^2)^2 + 5x^3) / (3x^2 + ln(1/x)), x)
 
 diff(-5^(7-3x), x)
 
-# !!! this one doesn't go well, maybe double check with a symbolic CAS
-# diff(sqrt(3x^x + log(3x)) / (3x^5 + 2x^3 + sin(x)), x)
-# well it gives the right thing in the GUI

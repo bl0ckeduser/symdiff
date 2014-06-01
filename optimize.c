@@ -267,7 +267,16 @@ int optimize(exp_tree_t *et)
 		&& et->child[0]->child_count
 		&& (et->head_type == MULT || et->head_type == ADD)) {
 
-		new = new_exp_tree(MULT, NULL);
+		/*
+		 * 2014-06-01
+		 *
+		 * There was a pretty stupid bug here
+		 * where it was always making MULT nodes
+		 * even if the original was an ADD
+		 *
+		 * The GUI somehow managed to avoid it
+		 */
+		new = new_exp_tree(et->head_type, NULL);
 		new_ptr = alloc_exptree(new);
 
 		below = et->child[0];	
@@ -279,7 +288,7 @@ int optimize(exp_tree_t *et)
 			add_child(new_ptr, et->child[q]);
 
 		memcpy(et, new_ptr, sizeof(exp_tree_t));
-		
+
 		return(1);
 	} 
 
@@ -288,11 +297,13 @@ int optimize(exp_tree_t *et)
 		&& et->child[et->child_count - 1]->head_type
 		== et->head_type
 		&& (et->head_type == MULT || et->head_type == ADD)) {
+
 		below = et->child[et->child_count - 1];
 		if (below->child_count) {
 			--(et->child_count);
 			for (i = 0; i < below->child_count; i++)
 				add_child(et, below->child[i]);
+
 			return(1);
 		}
 	}
