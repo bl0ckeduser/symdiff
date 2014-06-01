@@ -1,6 +1,19 @@
 # Fixed 2014-06-01
 diff(sqrt(3x^x + log(3x)) / (3x^5 + 2x^3 + sin(x)), x)
 
+# 	$ git checkout f4d9b optimize.c
+# 	$ ./sanitycheck.sh 
+# 	compiling...
+# 	CHECK diff(sqrt(3x^x + log(3x)) / (3x^5 + 2x^3 + sin(x)), x)
+# 	FLOATEVAL: error: 296.361173 %
+# 	!!! insane error !!!
+# 	FLOATEVAL: expected: -0.048744
+# 	FLOATEVAL: result: 0.024824
+# 	FLOATEVAL: result tree: 
+# 	((3 * x ^ 5 + 2 * x ^ 3 + sin(x)) * 1 / (2 * sqrt(3 * x ^ x + log(3 * x))) * (3 * x ^ x * (1 + log(x)) + 1 / x)) / (3 * x ^ 5 + 2 * x ^ 3 + sin(x)) ^ 2
+# 	------------------
+# 	SANITY CHECK FAILED
+
 
 diff(log(x), x)
 diff(log(x^2), x)
