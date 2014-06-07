@@ -22,6 +22,18 @@ Thu, May 22, 2014 at 11:48 AM
 
 "lnx" (for "ln(x)") syntax expected, assumed and desired
 
+support for e.g. sin^2(x) would also be nice
+
+the grammar/parser would have to be reworked, perhaps something 
+like this:
+
+expr := ... 
+	| known_function [ '^' expr ] mul_expr
+
+known_function := 'sin'
+		  | 'cos'
+		  | ...
+
 =====================================================================
 
 bug in CLI version:	[FIXED; added to sanitychecks.txt]
