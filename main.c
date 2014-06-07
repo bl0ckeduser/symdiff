@@ -220,7 +220,19 @@ int main(int argc, char** argv)
 			#ifdef FLOATEVAL
 				if (fe_run) {
 					fe_result = float_eval(&tree, fe_eval_point);
-					fe_error = fabs(fe_expected - fe_result) / fe_result * 100.0;
+					/*
+					 * Note: == on floats is generally not recommended,
+					 * however zero is a special case because an exact zero
+					 * is always 0x0000... in IEEE floats. Anyway,
+					 * I just don't want to divide by zero. Floats don't mind
+					 * it but they give you ``inf'' afterwards which is not
+				 	 * useful here.
+					 */
+					if (fe_result == 0.0) {
+						fe_error = fabs(fe_expected - fe_result) * 100.0;
+					} else {
+						fe_error = fabs(fe_expected - fe_result) / fe_result * 100.0;
+					}
 					printf("FLOATEVAL: error: %f %%\n", fe_error);
 					if (isnan(fe_error)) {
 						printf("!!! inconclusive !!!\n");

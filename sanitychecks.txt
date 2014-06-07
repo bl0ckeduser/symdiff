@@ -1,3 +1,5 @@
+diff(cos(x)^2 + sin(x)^2, x)
+
 # Fixed 2014-06-01
 diff(sqrt(3x^x + log(3x)) / (3x^5 + 2x^3 + sin(x)), x)
 
