@@ -1242,6 +1242,41 @@ filter_zeroes:
 		return(1);
 	}
 
+	/*
+	 * number * -expression => -number * expression
+	 */
+	if (et->head_type == MULT) {
+		/*
+		 * Look for a number
+		 */
+		chk = 0;
+		for (q = 0; q < et->child_count; ++q) {
+			if (et->child[q]->head_type == NUMBER) {
+				chk = 1;
+				break;
+			}
+		}
+
+		/*
+		 * We found a number, now look for a negative
+		 */
+		if (chk) {
+			for (w = 0; w < et->child_count; ++w) {
+				if (q != w && et->child[w]->head_type == NEGATIVE
+				    && et->child[w]->child_count == 1) {
+					/* bust off the negative from ``-expression'' */
+					et->child[w] = et->child[w]->child[0];
+					
+					/* remake the number as -number */
+					r = tok2int(et->child[q]->tok);
+					make_tree_number(et->child[q], -r);
+	
+					return (1);
+				}
+			}
+		}
+	}
+
 	/* anything times zero is 0 */
 	if (et->head_type == MULT
 		&& et->child_count > 1) {
