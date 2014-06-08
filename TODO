@@ -34,6 +34,42 @@ known_function := 'sin'
 		  | 'cos'
 		  | ...
 
+The lexical analyser would also need to be adapted, so
+it could deal with crazy typing like "lnx"
+
+a separate pass using a trie to split function names out
+
+then the tokenizer would use an identifiers table like in wannabe cc
+
+then the parser would know about this crazy syntax and build the
+AST's correctly
+
+	lnx
+
+	|		shorthands.c
+	V
+
+	ln x
+
+	|		tokenizer.c
+	V
+
+	TOK_KNOWNFUNC:	ln
+	TOK_IDENT:	x
+
+	|		parser.c
+	V
+
+	(FUNC:ln
+		(VARIABLE:x))
+	
+
+lnx -> ln(x)
+ln^2(x) -> ln(x)^2
+
+goddamn it why don't people properly format their fucking inputs already
+all this bullshit
+
 =====================================================================
 
 bug in CLI version:	[FIXED; added to sanitychecks.txt]
