@@ -602,9 +602,21 @@ filter_zeroes:
 						/* factor => 1 */
 						for (e = 0; e < et->child_count; ++e)
 							for (r = 0; r < et->child[e]->child_count; ++r)
-								if (sametree(et->child[e]->child[r], cancel))
+								if (sametree(et->child[e]->child[r], cancel)) {
 									make_tree_number(et->child[e]->child[r], 1);
-					
+									/*
+								 	 * 2014-06-10
+									 *
+									 * another dumb bug fixed:
+									 * only cancel once!!!
+									 *
+									 * ]=> (A * B * C) + (X * Y * B * B) + (B * S)
+									 * B * (A * C + X * Y * B + S)
+									 *
+									 */
+									break;
+								}
+
 						/* make new product tree */
 						new = new_exp_tree(MULT, NULL);
 						new_ptr = alloc_exptree(new);
