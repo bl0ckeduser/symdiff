@@ -98,7 +98,11 @@ double float_eval(exp_tree_t *t, double val)
 			if (!strcmp(get_tok_str(*(t->tok)), "e"))
 				result = 2.71828182845904523536028;
 			else
-				result = val;
+				/* 
+				 * Provided value + some variation based
+				 * on the first letter of the variable
+				 */
+				result = val + (float)(1.0 * (*get_tok_str(*(t->tok)) % 5));
 		}
 		break;
 

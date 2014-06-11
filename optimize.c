@@ -22,12 +22,12 @@
 #include <stdio.h>
 #include <string.h>	/* memcpy */
 
-#ifdef DEBUG
-	#define return(X) { printf("[DEBUG] leaving optimizer at line %d\n", \
+#ifdef DEBUG_OPT
+	#define return(X) { /* fprintf(stderr, "[DEBUG] leaving optimizer at line %d\n", \
 				    __LINE__); \
-			    printf("[DEBUG] fe1: %f, fe2: %f\n", fe_init, float_eval(et, 2.0)); \
+			    fprintf(stderr, "[DEBUG] fe1: %f, fe2: %f\n", fe_init, float_eval(et, 2.0)); */ \
 			    if (fabs(fe_init - float_eval(et, 2.0)) > 1.0) { \
-				 printf("\n\n\n**************************************\n"\
+				 fprintf(stderr, "\n\n\n**************************************\n"\
 				 " [DEBUG] probably bad code at line %d of optimize.c\n" \
 				 "**************************************\n\n\n", __LINE__); \
 				 exit(1); \
@@ -136,7 +136,7 @@ int optimize(exp_tree_t *et)
 	extern token_t* make_fake_tok(char *s);
 	extern double float_eval(exp_tree_t *, double val);
 
-	#ifdef DEBUG
+	#ifdef DEBUG_OPT
 		fe_init = float_eval(et, 2.0);
 	#endif
 
@@ -1298,7 +1298,7 @@ filter_zeroes:
 	return did;
 }
 
-#ifdef DEBUG
+#ifdef DEBUG_OPT
 	#define return(X) return(X)
 #endif
 

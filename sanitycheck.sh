@@ -1,7 +1,7 @@
 make clean 2>&1 >/dev/null
 rm -f matcher
 echo "compiling..."
-if ! make CFLAGS="-DFLOATEVAL" 2>/dev/null >/dev/null;
+if ! make CFLAGS="-DDEBUG_OPT -DFLOATEVAL" 2>/dev/null >/dev/null;
 then
 	echo "compile failed"
 	exit 1
