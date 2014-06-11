@@ -367,6 +367,13 @@ int optimize(exp_tree_t *et)
 		}
 	}
 
+	/* 
+	 * 2014-06-11
+	 * 
+	 * x ^ 2 * x ^3 * x^A * x
+	 * messed up here prior to fix
+	 */
+
 	/* A * B * A * XYZ * A => A^3 * B * XYZ */
 	if (et->child_count >= 2
 		&& et->head_type == MULT) {
@@ -377,9 +384,13 @@ int optimize(exp_tree_t *et)
 					++chk;
 				if (et->child[w]->head_type == EXP
 				&& et->child[w]->child_count == 2
-				&& sametree(et->child[w]->child[0], et->child[q])
-				&& et->child[w]->child[1]->head_type == NUMBER)
-					chk += tok2int(et->child[w]->child[1]->tok);
+				&& sametree(et->child[w]->child[0], et->child[q])) {
+					if (et->child[w]->child[1]->head_type == NUMBER) {
+						chk += tok2int(et->child[w]->child[1]->tok);
+					} else {
+						goto non_number_power;
+					}
+				}
 			}
 
 			if (et->child[q]->head_type == NUMBER)
@@ -409,6 +420,8 @@ int optimize(exp_tree_t *et)
 			}
 		}
 	}
+
+non_number_power: ;
 
 	/* A  + B + A + XYZ + A => A*3 + B + XYZ */
 	if (et->child_count >= 2
