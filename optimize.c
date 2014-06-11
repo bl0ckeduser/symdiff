@@ -664,23 +664,43 @@ filter_zeroes:
 		cancel = copy_tree(et->child[1]->child[0]);
 		below = et->child[0];
 
-		chk = 0;
+		/*
+		 * 2014-06-10
+		 *
+		 * ensure all the ocurrences of C
+		 * in the numerator are of the 2-child EXP kind
+		 * before proceding !!
+		 */
+		chk = 1;
 		for (i = 0; i < below->child_count; ++i) {
-			if (below->child[i]->child_count == 2
-			&& below->child[i]->head_type == EXP) {
-				if (sametree(below->child[i]->child[0], cancel)) {
-					chk = 1;
-					new = new_exp_tree(SUB, NULL);
-					new_ptr = alloc_exptree(new);
-					add_child(new_ptr, copy_tree(below->child[i]->child[1]));
-					add_child(new_ptr, copy_tree(et->child[1]->child[1]));
-					below->child[i]->child[1] = new_ptr;
+			if (!indep(below->child[i], cancel)) {
+				if (! (below->child[i]->child_count == 2
+					&& below->child[i]->head_type == EXP)) {
+					chk = 0;
+					break;
 				}
 			}
 		}
+
 		if (chk) {
-			et->child_count--;
-			return(1);
+			chk = 0;
+			for (i = 0; i < below->child_count; ++i) {
+				if (below->child[i]->child_count == 2
+				&& below->child[i]->head_type == EXP) {
+					if (sametree(below->child[i]->child[0], cancel)) {
+						chk = 1;
+						new = new_exp_tree(SUB, NULL);
+						new_ptr = alloc_exptree(new);
+						add_child(new_ptr, copy_tree(below->child[i]->child[1]));
+						add_child(new_ptr, copy_tree(et->child[1]->child[1]));
+						below->child[i]->child[1] = new_ptr;
+					}
+				}
+			}
+			if (chk) {
+				et->child_count--;
+				return(1);
+			}
 		}
 
 	}

@@ -14,7 +14,18 @@ A * B + C * A = A * (B + C)
 
 (?v * #n) / #n2 = (n/n2) * v
 
-(A * u^#a) / u^#b = A * u^(a-b)
+% 2014-06-10
+%
+% There is a potential error here:
+%
+% 	]=> (A * B * B^0) / B^1
+%	A * B * B ^ -1
+%
+% A symbol gets matched to A * B pattern...
+%
+% The only solutions seem to be to comment out this rule
+% But that's no problem since optimize.c does this sort of cancellation
+% (A * u^#a) / u^#b = A * u^(a-b)
 
 A * (1 / B) =  A / B
 
