@@ -423,49 +423,6 @@ int optimize(exp_tree_t *et)
 
 non_number_power: ;
 
-	/* A  + B + A + XYZ + A => A*3 + B + XYZ */
-	if (et->child_count >= 2
-		&& et->head_type == ADD) {
-		for (q = 0; q < et->child_count; ++q) {
-			chk = 0;
-			for (w = 0; w < et->child_count; ++w) {
-				if (sametree(et->child[w], et->child[q]))
-					++chk;
-				if (et->child[w]->head_type == MULT
-				&& et->child[w]->child_count == 2
-				&& sametree(et->child[w]->child[0], et->child[q])
-				&& et->child[w]->child[1]->head_type == NUMBER)
-					chk += tok2int(et->child[w]->child[1]->tok);
-			}
-
-			if (et->child[q]->head_type == NUMBER)
-				chk = 0;
-
-			if (chk > 1) {
-				chk2 = 0;
-				cancel = copy_tree(et->child[q]);
-				for (q = 0; q < et->child_count; ++q) {
-					if (sametree(cancel, et->child[q])
-					|| (et->child[q]->head_type == MULT
-						&& et->child[q]->child_count == 2
-						&& sametree(et->child[q]->child[0], cancel))) {
-						if(!chk2) {
-							chk2 = 1;
-							new = new_exp_tree(MULT, NULL);
-							new_ptr = alloc_exptree(new);
-							add_child(new_ptr, cancel);
-							add_child(new_ptr, new_tree_number(chk));
-							et->child[q] = new_ptr;
-						} else {
-							make_tree_number(et->child[q], 0);
-						}
-					}
-				}
-				return(1);
-			}
-		}
-	}
-
 	/* 
 	 * Remove 1's from products, 0's from additions,
 	 * 0's from subtractions 
