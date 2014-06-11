@@ -835,7 +835,7 @@ filter_zeroes:
 					derp = below->child[q];
 				}
 	
-		if (chk == 1) {
+		if (chk == 1 && below->head_type == ADD) {
 			herp = copy_tree(et->child[0]);
 
 			new2 = new_exp_tree(ADD, NULL);
