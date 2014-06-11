@@ -26,8 +26,12 @@
 	#define return(X) { printf("[DEBUG] leaving optimizer at line %d\n", \
 				    __LINE__); \
 			    printf("[DEBUG] fe1: %f, fe2: %f\n", fe_init, float_eval(et, 2.0)); \
-			    if (fabs(fe_init - float_eval(et, 2.0)) > 1.0) \
-				 printf("[DEBUG] probably bad code at line %d of optimize.c\n", __LINE__); \
+			    if (fabs(fe_init - float_eval(et, 2.0)) > 1.0) { \
+				 printf("\n\n\n**************************************\n"\
+				 " [DEBUG] probably bad code at line %d of optimize.c\n" \
+				 "**************************************\n\n\n", __LINE__); \
+				 exit(1); \
+			    } \
 			    return(X); \
 			  }
 #endif
