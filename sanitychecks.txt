@@ -2,7 +2,24 @@
 # Algebraic reduction tests
 ##################################################################
 
+# $ git revert d27f55
+# $ ./sanitycheck.sh
+#        $ ./sanitycheck.sh 
+#        compiling...
+#        CHECK (A * B * C) + (X * Y * B * B)
+#        
+#        
+#        
+#        **************************************
+#         [DEBUG] probably bad code at line 591 of optimize.c
+#        **************************************
+#        
+#        
+#        ------------------
+#        SANITY CHECK FAILED
+
 (A * B * C) + (X * Y * B * B)
+
 
 
 ##################################################################
