@@ -1075,7 +1075,7 @@ filter_zeroes:
 					add_child(num_ptr, copy_tree(cancel->child[1]));
 					add_child(num_ptr, new_tree_number(1));
 					cancel->child[1] = num_ptr;
-					return 1;
+					return(1);
 				}
 			}
 		}
@@ -1133,7 +1133,7 @@ filter_zeroes:
 			if (chk == 1) {
 				make_tree_number(et->child[q], 1);
 				et->child[chk2]->child_count--;
-				return 1;
+				return(1);
 			}
 		}
 	}
@@ -1181,7 +1181,7 @@ filter_zeroes:
 						add_child(num_ptr, copy_tree(below->child[e]->child[1]));
 						add_child(num_ptr, new_tree_number(1));
 						below->child[e]->child[1] = num_ptr;
-						return 1;
+						return(1);
 					}
 				}
 			}
