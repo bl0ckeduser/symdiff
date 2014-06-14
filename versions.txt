@@ -1,3 +1,20 @@
+commit	2ab6cde90d4a803ad6163d75edd9a7111f87a02e
+dated	"Thu Jun 12 19:23:28 2014 -0400"
+
+corresponds to version 1.8 of the GUI,
+compiled on "Fri Jun 13 20:52:09 EDT 2014"
+
+changelog:
+
+  Fixed several errors in the algebraic simplification code;
+  added .png default extension in "Save as PNG" dialog;
+  improved and updated help page;
+  improved arithmetic cancellations (thanks Umair);
+  fixed crashes on invalid syntax (thanks knipil, smikims);
+  added notice to consult help page if in doubt;
+  implemented autofocus on "expression" field on startup
+
+-----------------------------------------------------------------------------
 commit	eea3b5979420a200e29ffcc225fd11dfb61bf2b7
 dated	"Wed Apr 9 13:01:25 2014 -0400",
 
