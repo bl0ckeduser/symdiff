@@ -221,3 +221,12 @@ diff((x^3 ln(2x)) / (e^x sin(x)), x)
 diff((x^3 + 5x^2)^3, x)
 diff((x^3 + x^5) / (e^x + cos(x)), x)
 
+##################################################
+
+# from old screenshots
+
+diff((3x^2+cos(3x))/sqrt(x^x+log(5sin(x))), x)
+diff(sin(3cos(x^2)^3+log(x)), x)
+diff(sin(3cos(x^2)^3+log(x)) / sqrt(cos(x) + sin(x)), x)
+diff(cos(3x^2+5x^x+e^x), x)
+diff(cos(3x^2+5x^x+e^x) / sqrt(e^x + cos(x^3)), x)
