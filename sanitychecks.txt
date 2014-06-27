@@ -230,3 +230,14 @@ diff(sin(3cos(x^2)^3+log(x)), x)
 diff(sin(3cos(x^2)^3+log(x)) / sqrt(cos(x) + sin(x)), x)
 diff(cos(3x^2+5x^x+e^x), x)
 diff(cos(3x^2+5x^x+e^x) / sqrt(e^x + cos(x^3)), x)
+
+# finally managing to get some big ones into the float check
+
+diff(cos(3x^2 + sin(x^2)^3 + log(x)) / log(sqrt(e^x) + x^x + sin(x^2 + 3x)), x)
+diff(cos(3x^2 * sin(x^2)^3 + log(x)) / log(sqrt(e^x) + x^x + sin(x^2 + 3x)), x)
+diff(cos(3x^2 * sin(x^2)^3 - log(x)) / log(sqrt(e^x) + x^x + sin(x^2 + 3x)), x)
+diff(cos(3x^2 * sin(x^2)^3 - log(x)) / log(sqrt(e^x) * x^x + sin(x^2 + 3x)), x)
+diff(cos(3x^2 * sin(x^2)^3 - log(x)) + log(sqrt(e^x) * x^x + sin(x^2 + 3x)), x)
+diff(cos(3x^2 * log(x)) + log(sqrt(e^x) * x^x + sin(x^2 + 3x)), x)
+diff(cos(3x^2 + log(x)) - log(sqrt(e^x) * x^x + sin(x^2 + 3x)), x)
+diff(cos(3x^2) - log(sqrt(e^x) * x^x + sin(x^2 + 3x)), x)
