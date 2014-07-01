@@ -953,7 +953,16 @@ filter_zeroes:
 	 * 		(A + B + (C * D * Z) / E) / C
 	 * 	=>	(A + B) / C + (D * Z) / E
 	 *
+	 *		((B*C+X*C)/U + (C*D+Z*C+C)/E)/C
+	 * 	=>	(B + X) / U + (1 + D + Z) / E
+	 *
+	 *		((B*C+X*C)/U + (C*D+Z*C+C-C+C*C)/E)/C
+	 *	=>	(C * (1 + D + Z) + -1 * C + C ^ 2) / E / C + (B + X) / U
+	 *
+	 *		((B*C+X*C)/U + (C*D+Z*C+C)/E)/C
+	 *	=>	(B + X) / U + (1 + D + Z) / E
 	 */
+
 	if (et->head_type == DIV
 		&& et->child_count == 2
 		&& et->child[0]->head_type == ADD) {
@@ -967,14 +976,18 @@ filter_zeroes:
 			if (below->child[q]->head_type == DIV
 				&& below->child[q]->child_count == 2
 				&& below->child[q]->child[0]->head_type == MULT) {
+				chk2 = 0;
 				for (w = 0; w < below->child[q]->child[0]->child_count; ++w) {
 					if (sametree(cancel, 
 						below->child[q]->child[0]->child[w]))
 					{
-						++chk;
-						break;
+						++chk2;
 					}
 				}
+
+				/* only makes sense to fold if there is exactly one occurence */
+				if(chk2 == 1)
+					++chk;
 			}
 
 		if (chk >= 1) {
@@ -984,7 +997,18 @@ filter_zeroes:
 
 			chk2 = 0;
 			for (q = 0; q < below->child_count; ++q) {
-				chk = 0;
+				chk3 = 0;
+
+				/*
+				 * 2014-07-01
+				 * this deals with some crazy rare cases
+				 */
+				if( (  below->child[q]->child[0]->head_type == ADD
+				    || below->child[q]->child[0]->head_type == SUB
+				    || below->child[q]->child[0]->head_type == DIV)
+				    && below->child[q]->child[0]->child_count == 1) {
+					below->child[q]->child[0] = below->child[q]->child[0]->child[0];
+				}
 
 				if (below->child[q]->head_type == DIV
 					&& below->child[q]->child_count == 2
@@ -992,10 +1016,12 @@ filter_zeroes:
 					for (w = 0; w < below->child[q]->child[0]->child_count; ++w)
 						if (sametree(cancel, 
 							below->child[q]->child[0]->child[w])) {
-							chk = 1;
-							break;
+							chk3++;
 						}
 				}
+
+				/* only makes sense to fold if there is exactly one occurence */
+				chk = chk3 == 1;
 
 				if (!chk) {
 					++chk2;
@@ -1023,27 +1049,45 @@ filter_zeroes:
 			below = et->child[0];
 			cancel = et->child[1];
 
-			for (q = 0; q < below->child_count; ++q)
+			for (q = 0; q < below->child_count; ++q) {
+				/*
+				 * 2014-07-01
+				 * this deals with some crazy rare cases
+				 */
+				if( (  below->child[q]->child[0]->head_type == ADD
+				    || below->child[q]->child[0]->head_type == SUB
+				    || below->child[q]->child[0]->head_type == DIV)
+				    && below->child[q]->child[0]->child_count == 1) {
+					below->child[q]->child[0] = below->child[q]->child[0]->child[0];
+				}
+
 				if (below->child[q]->head_type == DIV
 					&& below->child[q]->child_count == 2
 					&& below->child[q]->child[0]->head_type == MULT) {
+						chk3 = 0;
 						for (w = 0; w < below->child[q]->child[0]->child_count; ++w) {
 							if (sametree(cancel, 
 								below->child[q]->child[0]->child[w]))
 							{
-								derp = below->child[q];
-
-								for (e = 0; e < derp->child[0]->child_count; ++e)
-									if (sametree(derp->child[0]->child[e], cancel))
-										make_tree_number(derp->child[0]->child[e], 1);
-
-								add_child(num_ptr, copy_tree(derp));
+								++chk3;
 							}
 						}
+
+						/* only makes sense to fold if there is exactly one occurence */
+						if (chk3 == 1) {
+							derp = below->child[q];
+
+							for (e = 0; e < derp->child[0]->child_count; ++e)
+								if (sametree(derp->child[0]->child[e], cancel))
+									make_tree_number(derp->child[0]->child[e], 1);
+
+							add_child(num_ptr, copy_tree(derp));
+						}
 				}
+			}
 
 			memcpy(et, num_ptr, sizeof(exp_tree_t));
-			return(1);	
+			return(1);
 		}
 	}
 

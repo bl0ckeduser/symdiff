@@ -43,6 +43,60 @@ A * (B * C * D * E * F) / G
 
 (-1 / 2 * (1 + x)) / sqrt(-2 + x)) / ((-2 + x) * (1 + x) / sqrt(-2 + x)
 
+A^n * (B + C/A)
+A^n * (B + C/A + A + A + 1/A)
+A^n * (B + C/A + 1/A + A*A)
+A^n * (B + C/A + C/A)
+A^n * (B + C/A + B/A)
+A^n * (B * C/A * B/A)
+A^n * (B + C/A + B*A)
+A^n * (B + C/A + B*A) * A^n 
+A^n * (B + C/A + B*A) / A^n 
+A^n * (B + C/A + B*A) / A
+A^n * (B + C/A + B*A) * A
+A^n * (B + C/A + B*A) + A
+
+A^n * B * (C + D/A)
+A^n * B * (C + D/A + A)
+A^n * B * (C + D/A + A + A/D)
+A^n * B * (C + D/A + A + A/D + 1/A)
+A^n * B * (C + D/A + A + A/D + 1/A + A^2)
+A^n + B * (C + D/A + A + A/D + 1/A + A^2)
+A^n + B + (C + D/A + A + A/D + 1/A + A^2)
+A^n * B * (C * D/A * A + A/D * 1/A + A^2)
+A^n * B * (C * D/A + A * A/D + 1/A + A^2)
+
+# this would fail before the fix of 2014-07-01
+(A + W + (B * C * X) / U + (C * D * Z) / E) / C
+(A + W + (B * C * X * U) / U + (C * D * Z * E) / E) / C
+(A + W + (B * C * X * C) / U + (C * D * Z * C) / E) / C
+(A * W + (B * C * X * C) / U + (C * D * Z * C) / E) / D
+
+# this would fail before the fix of 2014-07-01
+((B*C*X)/U + (C*D*Z)/E)/C
+((B*C*X*C)/U + (C*D*Z)/E)/C
+((B*C*X*C)/U + (C*D*Z*C*E)/E)/C
+((B*C*X*C)/U + (C*D+Z*C+E)/E)/C
+((B*C*X*C)/U + (C*D*Z*C+E)/E)/C
+((B*C*X*C)/U + (C*D*Z*C+C)/E)/C
+((B*C+X*C)/U + (C*D+Z*C+C)/E)/C
+
+# this would fail before the fix of 2014-07-01
+((B*C+X*C)/U + (C*D+Z*C+C-C+C*C)/E)/C
+((B*C+X*C)/U + (C*(C^3+1))/E)/C
+((B*C+X*C)/U + (C*(U/C+1))/E)/C
+((B*C+X*C)/U + (C*(3/C+3*C))/E)/C
+((B*C+X*C)/U + (C*(3/C+3*C+C^C))/E)/C
+((B*C+X*C)/U + (C*(3/C+3*C*3^C))/E)/C
+((B*C+X*C)/U + (C*(3/C+3*C*sin(C)))/E)/C
+((B*C+X*C)/U + C + (C*(3/C+3*C*sin(C)))/E)/C
+((B*C+X*C)/U + A/C + (C*(3/C+3*C*sin(C)))/E)/C
+((B*C+X*C)/U + E/C + (C*(3/C+3*C*sin(C)))/E)/C
+((B*C+X*C)/U + 3*C + (C*(3/C+3*C*sin(C)))/E)/C
+((B*C+Y*C)/V + 3*C * C^3 + (C*(3/C+3*C*sin(C)))/E)/C
+((B*C+Y*C)/V + 3*C * C^3 + (C*(3/C+3*C*sin(C)))/E)/D
+((B*C+Y*C)/V + 3*C * C^3 + (C*(3/C+3*C*sin(C)))/E)/E
+((B*C+Y*C)/V + 3*C * C^3 + (C*(3/C+3*C*sin(C)))/E)/V
 
 ##################################################################
 # Derivative tests
