@@ -76,7 +76,8 @@ int main(int argc, char** argv)
 	 */
 	rc = readrules(rules, "rules");
 
-	/* There are also rules for presentation
+	/* 
+	 * There are also rules for presentation
 	 * of the final result, for example
 	 * the notation e^x is preferred to
 	 * the notation exp(x), etc.

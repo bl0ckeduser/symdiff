@@ -24,7 +24,8 @@ extern int sametree(exp_tree_t *a, exp_tree_t *b);
 
 char buf_a[128], buf_b[128], buf_c[128];
 
-/* Is "tree" not identical to "key"
+/* 
+ * Is "tree" not identical to "key"
  * or a father (recursively) of such a tree ?
  *
  * This is used for special pattern-matching
@@ -151,7 +152,8 @@ int treematch(exp_tree_t *a, exp_tree_t *b, dict_t* d)
 		}
 	}
 
-	/* (MATCH_XXX (VARIABLE:e) (VARIABLE:x)) ...
+	/* 
+	 * (MATCH_XXX (VARIABLE:e) (VARIABLE:x)) ...
 	 * 
 	 * MATCH_IND: match "E" if it contains no occurence of the symbol
 	 * stored for "X"
@@ -195,11 +197,10 @@ int treematch(exp_tree_t *a, exp_tree_t *b, dict_t* d)
 				}
 			}
 		} else {
-			/* Problematic situation for which there
-			 * may be a remedy... In other words,
-			 * probably-fixable bug.
+			/* 
+			 * Forward variable references are currently unsupported
 			 *
-			 * See what "SYNTAX" file says about bug with
+			 * See also what "SYNTAX" file says about bug with
 			 * e|x and e:x syntax.
 			 */
 			printf("[forward substitution issue]\n");

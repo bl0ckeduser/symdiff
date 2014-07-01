@@ -249,7 +249,8 @@ int optimize(exp_tree_t *et)
 		}
 	}
 
-	/* Simplify nested binary trees,
+	/* 
+	 * Simplify nested binary trees,
 	 * e.g. (SUB (SUB (NUMBER:3) (NUMBER:2)) (NUMBER:1))
 	 * becomes (SUB (NUMBER:3) (NUMBER:2) (NUMBER:1))
 	 */
@@ -1042,7 +1043,7 @@ filter_zeroes:
 				}
 
 			memcpy(et, num_ptr, sizeof(exp_tree_t));
-			return(1);			
+			return(1);	
 		}
 	}
 
