@@ -98,6 +98,28 @@ A^n * B * (C * D/A + A * A/D + 1/A + A^2)
 ((B*C+Y*C)/V + 3*C * C^3 + (C*(3/C+3*C*sin(C)))/E)/E
 ((B*C+Y*C)/V + 3*C * C^3 + (C*(3/C+3*C*sin(C)))/E)/V
 
+
+donald / (u * x ^ n) * x * foo
+donald / (u * x ^ n) * x * x * foo
+donald / (u * x ^ n) * x * x * foo
+donald / (u * x ^ n) * x * x^x * foo
+donald / (u * x ^ n) * x * 1/x * foo
+donald / (u * x ^ x) * x * 1/x * foo
+donald / (u * x ^ n + u) * x * 1/x * foo
+donald / (u * x ^ n * donald) * x * 1/x * foo
+donald / (u * x ^ n * x^5 * x^2) * x * 1/x * foo
+donald / (u * x ^ n * ((x^1)^5 * (x^1)^2)) * x * 1/x * foo
+
+A * U/A  * FOO * BAR * XYZ
+A * U/A * BAR/A * A * A * XYZ
+
+A * A * U/A  * FOO * BAR * XYZ * A
+A * A * U/A  * FOO * BAR * XYZ * A * U/A
+A * A * A^3 * U/A  * FOO * BAR * XYZ * A * U/A
+A * A * A^3 * 1/A * A^A  * FOO * BAR * XYZ * A * U/A
+A * A * A^3 * 1/A * 3^A  * FOO * BAR * XYZ * A * U/A
+
+
 ##################################################################
 # Derivative tests
 ##################################################################

@@ -784,6 +784,7 @@ filter_zeroes:
 	/*
 	 *	(A * B^n * C) / B = (A * B ^ (n - 1) * C)
 	 */
+	/* A * A * A^3 * U/A  * FOO * BAR * XYZ * A * U/A */
 	if (et->head_type == DIV
 		&& et->child_count == 2 
 		&& et->child[0]->head_type == MULT) {
@@ -806,6 +807,12 @@ filter_zeroes:
 				/* transpose */
 				memcpy(below->child[q]->child[1], 
 					new_ptr, sizeof(exp_tree_t));
+
+				/* 
+				 * 2014-07-01
+				 * do this only once!!!
+				 */
+				break;
 			}
 		}
 
