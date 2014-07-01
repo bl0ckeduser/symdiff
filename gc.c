@@ -2,7 +2,8 @@
  * rough "garbage collector" helping system
  * (memory allocations are made into groups
  * which are freed by the main code when it
- * is clear that said memory is done with)
+ * is certain that the memory belonging in a group is 
+ * done with)
  */
 
 #include "gc.h"
