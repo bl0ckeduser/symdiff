@@ -197,6 +197,22 @@ A * B + A / XYZ * A * A + A
 (A * B * C ^ 2 * C^6 + C + C^C) / 3 ^ C
 (A + C) / C^3
 
+(A * B * C) + (X + Y * B)
+(A * B * C) + (X + Y + B)
+(A * B * C) + (X * Y + B)
+(A * B * C) + (X * (Y + B))
+(A * B * C) + (B * (A + B))
+(A * B * C) + (B * (bleh / (B^(sin(u)/sin(u^1)))))
+(A * B * C) + (X * Y * B * B) + (B * S)
+(A * B * C) + (X * Y * B * B) + B
+(A * B * C) + (X * Y * B * B) + C
+(A * B * C) + (X * Y * B * B) + A
+(A * B * C) + (X * Y * B * B) + (B * S) + (S * T * U) + (B * T)
+(A * S * B * C) + (X * Y * B * B) + (B * S) + (S * T * U) + (B * T)
+(A * S * B * C) + (X * Y * B * B) + (B * S * T) + (T * U)
+
+(A * B) + (C * D) + (E * F)
+
 ##################################################################
 # Derivative tests
 ##################################################################
@@ -394,3 +410,7 @@ diff(cos(3x^2 * sin(x^2)^3 - log(x)) + log(sqrt(e^x) * x^x + sin(x^2 + 3x)), x)
 diff(cos(3x^2 * log(x)) + log(sqrt(e^x) * x^x + sin(x^2 + 3x)), x)
 diff(cos(3x^2 + log(x)) - log(sqrt(e^x) * x^x + sin(x^2 + 3x)), x)
 diff(cos(3x^2) - log(sqrt(e^x) * x^x + sin(x^2 + 3x)), x)
+
+diff(cos(3x^2 + sin(x)) / log(sin(x)cos(x) + e^x +sqrt(3x^2 + sin(x))) + cos(3x^2 + ln(x)^3), x)
+diff(cos(3x^2 + sin(x)), x)
+diff(cos(cos(3x^2 + sin(x)))^3, x)
