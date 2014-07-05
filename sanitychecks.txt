@@ -69,6 +69,11 @@ A^n * B * (C * D/A + A * A/D + 1/A * A^2) * (C + D/A) / B + (C*D/A)
 A^n * B * (C * D/A + A * A/D + 1/A * A^2) * (C + D/A) + (C*D/A)
 A^n * B * (C * D/A + A * A/D * 1/A * A^2 * 1/(B^3)) * (C + D/A) + (C*D/A)
 
+A^n * B * (C + D/A) * B^n * (E + F/B) + bleh
+A^n * B * (C + D/A + B^n) * B^n * (E + F/B)
+A^n * B * (C + D/A + A^3) * B^n * (E + F/B)
+A^n * B * (C + D/A + A^3) * B^n * (E + F/B) * (B/F + A^n * B^n)
+
 # this would fail before the fix of 2014-07-01
 (A + W + (B * C * X) / U + (C * D * Z) / E) / C
 (A + W + (B * C * X * U) / U + (C * D * Z * E) / E) / C
@@ -101,6 +106,12 @@ A^n * B * (C * D/A + A * A/D * 1/A * A^2 * 1/(B^3)) * (C + D/A) + (C*D/A)
 ((B*C+Y*C)/V + 3*C * C^3 + (C*(3/C+3*C*sin(C)))/E)/E
 ((B*C+Y*C)/V + 3*C * C^3 + (C*(3/C+3*C*sin(C)))/E)/V
 
+((B*C+X*C+U*E+U+F)/U + (C*D+Z*C+C)/E)/C
+((B*C+X*C+C*U)/U + (C*D+Z*C+C)/E)/C
+((B*C+X*C+C)/U + (C*D+Z*C+C+E)/E)/C
+((B*C+X*C+C)/U + (C*D+Z*C+C+E*C)/E)/C
+((B*C+X*C+C)/U + (C*D+Z*C+C+E*U)/E)/C
+((B*C+X*C+C)/U + (C*D+Z*C+C+U)/E)/C
 
 donald / (u * x ^ n) * x * foo
 donald / (u * x ^ n) * x * x * foo
@@ -113,6 +124,18 @@ donald / (u * x ^ n * donald) * x * 1/x * foo
 donald / (u * x ^ n * x^5 * x^2) * x * 1/x * foo
 donald / (u * x ^ n * ((x^1)^5 * (x^1)^2)) * x * 1/x * foo
 
+donald / (u * x ^ n) * x * foo * donald / (u * x ^ n) * x
+donald / (u * x ^ n * n^x) * x * foo * foo * x
+donald / (u * x ^ n * n^x * x * x) * x * foo * foo * x
+
+(A * B^n) / (B * C * D)
+(A * B^n * C^n) / (B * C * D)
+(A * B^n * C^n * D^n) / (B * C * D)
+(A * B^n * C * B * E) / (B * C * D)
+(A * B^n * C * B * E) / (B * C * D * E)
+(A * B^n * C * B * E) / (B^n * C * D * E)
+(A * B^n * C * B^n * E) / (B^n * C * D^m * E)
+
 A * U/A  * FOO * BAR * XYZ
 A * U/A * BAR/A * A * A * XYZ
 
@@ -123,6 +146,14 @@ A * A * A^3 * 1/A * A^A  * FOO * BAR * XYZ * A * U/A
 A * A * A^3 * 1/A * 3^A  * FOO * BAR * XYZ * A * U/A
 
 (A * B^n) / (B * C * D)
+(A * B^n * B) / (B * C * D)
+(A * B^n * B) / (B * C * D)
+(A * B^n) / (C * D)
+(A * B^n + B) / (B * C * D + B + B + B)
+(A * B^n * B * C * B * D) / (B * C * D * D * D * B)
+(A * B^n * C * C * B * D) / (B * C * D * D * D * B)
+(A * B^n * C * C * sin(B) * D) / (B * C * D * D * D * B)
+(A * B^n * C * C * (1+B) * D) / (B * C * D * D * D * B)
 (A * B^n * 1/B) / (B * C * D)	
 (A * B^n * 1/B) / (B * C * D * 1/B + B)	
 (A * B^n * 1/B + 3*B) / (B * C * D * 1/B + B)	

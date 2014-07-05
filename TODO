@@ -75,3 +75,9 @@ all this bullshit
 bug in CLI version:	[FIXED; added to sanitychecks.txt]
 
 diff((5*x^3 + 4*x^2) / (e^x + cos(x) * 3*x^2), x)
+
+====================================================================
+
+couldn't i use prufer codes to do some massive crazy exhuastive
+testing ?
+
