@@ -414,3 +414,6 @@ diff(cos(3x^2) - log(sqrt(e^x) * x^x + sin(x^2 + 3x)), x)
 diff(cos(3x^2 + sin(x)) / log(sin(x)cos(x) + e^x +sqrt(3x^2 + sin(x))) + cos(3x^2 + ln(x)^3), x)
 diff(cos(3x^2 + sin(x)), x)
 diff(cos(cos(3x^2 + sin(x)))^3, x)
+
+
+diff(6x^(3/2) tan(x), x)
