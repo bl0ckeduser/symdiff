@@ -213,6 +213,10 @@ A * B + A / XYZ * A * A + A
 
 (A * B) + (C * D) + (E * F)
 
+
+cos(3x^2 + sin(x)) / log(sin(x)cos(x) + e^x +sqrt(3x^2 + sin(x))) + cos(3x^2 + ln(x)^3)
+
+
 ##################################################################
 # Derivative tests
 ##################################################################
@@ -242,6 +246,10 @@ diff(x^3, x)
 diff(x^5, x)
 diff(3x^2 + 2x + 1, x)
 diff(x^cos(x), x)
+
+# this one fails the check but is still good
+#diff(x^cos(x^2), x)
+diff(cos(log(x)), x)
 
 diff(e^x, x)
 diff(sqrt(x), x)
@@ -279,6 +287,8 @@ diff((x-5)^2 / (4*x+9)^3, x)
 diff(e^(cos(x) * sin(x)), x)
 diff((3*x^2 + 5*x^3) / (3*x^5 + 4*x^6), x)
 diff((x^2)^1/3, x)
+
+diff(cos(x * sin(x^x)), x)
 
 # inconclusive
 # diff(tan(x^2)^x, x)
@@ -417,3 +427,20 @@ diff(cos(cos(3x^2 + sin(x)))^3, x)
 
 
 diff(6x^(3/2) tan(x), x)
+
+# =================================================================================
+# A few from NEEDSWORK (cat NEEDSWORK|grep diff|sed 's/]=> //g')
+# =================================================================================
+
+diff((x^3*log(2*x)) / (e^x*sin(x)), x)
+diff((2*x+7)^3 * (4*x - 3)^5, x)
+diff(sin(6*x+1)^2 / sec(x-3), x)
+diff((x^3+5)/(2*x+1), x)
+
+
+# old testing cases
+diff(cos(x^x+log(x))/e^(2x), x)
+diff(x^x / (e^x+cos(x)), x)
+diff((x^3+x^5)/(e^x+cos(x)), x)
+diff(cos(x^3 / log(x^2)), x)
+diff(x^sin((3x+5)/x^2), x)
