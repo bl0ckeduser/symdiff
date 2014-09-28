@@ -119,8 +119,13 @@ double float_eval(exp_tree_t *t, double val)
 double float_diff(exp_tree_t *t, double val)
 {
 	double dx = 0.000001;
-	double dy = float_eval(t, val + dx) - float_eval(t, val);
-	return dy/dx;
+	/*
+	 * This formula is actually better than the more obvious naive one.
+	 * This is explained in the book "Numerical computing with IEEE floating point arithmetic"
+	 * by Michael L. Overton, SIAM 2001, pages 73-75.
+	 */
+	double dy = float_eval(t, val + dx) - float_eval(t, val - dx);
+	return dy/(2.0*dx);
 }
 
 
