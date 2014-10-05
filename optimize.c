@@ -519,8 +519,6 @@ filter_zeroes:
 								 * Oterhwise, the GUI has weird-looking steps.
 								 */				
 								goto filter_zeroes;
-
-								return(1);
 							}
 						}
 					}
