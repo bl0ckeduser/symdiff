@@ -85,8 +85,7 @@ Bugs
 ----
 
 - Matcher can't deal with certain patterns, see file 'SYNTAX'.
-- Parser crash (segfault) on certain instances of illegal syntax 
-  (I should really fix this)
+  This isn't a user-facing bug, really, especially not the locked-down GUI
 
 Fixed bugs
 ----------
@@ -101,6 +100,10 @@ Fixed bugs
   'diff(z^log(sqrt(z)) * z / cos(z), z)' took 38.728 seconds.
   UPDATE: since commit 147cdea87850438bd2006e54389a0c594d19cf99,
   these times have shrunk to 0.135s and 0.737s respectively :)
+- Parser crash (segfault) on certain instances of illegal syntax 
+  (I should really fix this)
+  actually i think this has been fixed, kudos to knipil, some bluemoons ago
+  refer commit b56d81008ce068935029aa1600e5c28e1d368856
 
 Notes
 -----
