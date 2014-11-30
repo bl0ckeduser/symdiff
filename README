@@ -6,6 +6,13 @@
    probably the chain rule)
 
    This is a toy/self-education project by "blockeduser", started May 2013.
+   And being maintained through the future, because a project is never over,
+   only abandoned. Users are extremely talented at coming with new desired
+   features. According to my economy course, the world has "infinite needs".
+   Well there you go right there. Unemployment is evil. You have to fix
+   bugs every day till you kick the bucket if you want things to be golden.
+   There is no royal route.
+
    It is very far from perfect and could be improved upon.
    It is coded in hopefully-not-too-bad C.
 
@@ -80,6 +87,10 @@ This program is based on three things:
 		 august 2012, which handle the lexing)
 	   This makes the infix REPL interface possible.
 	   The bulk of the code in this program is from that project.
+
+	4) "Numerical computing with IEEE floating point arithmetic"
+	   by Michael L. Overton, SIAM 2001, pages 73-75: has provided
+	   a technique to make the float testing module marginally better.
 
 Bugs
 ----
