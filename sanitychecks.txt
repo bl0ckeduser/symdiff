@@ -221,6 +221,10 @@ cos(3x^2 + sin(x)) / log(sin(x)cos(x) + e^x +sqrt(3x^2 + sin(x))) + cos(3x^2 + l
 # Derivative tests
 ##################################################################
 
+diff(e^(cos(x)sin(x)), x)
+
+diff((1+x)(1+x^2)^2, x)
+
 diff(cos(x)^2 + sin(x)^2, x)
 
 # Fixed 2014-06-01
