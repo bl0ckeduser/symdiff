@@ -610,7 +610,18 @@ filter_zeroes:
 	if (et->child_count > 2
 		&& et->head_type == MULT
 		&& et->child[et->child_count - 1]->head_type == DIV
-		&& et->child[et->child_count - 1]->child_count == 2) {
+		&& et->child[et->child_count - 1]->child_count == 2
+
+		/*
+		 * 2015-05-04
+		 *
+		 * Prevent a conflict with 
+		 * 	 (A * 123 * C) / 456 => (123/456) * A * C 
+		 */
+		&& !(et->child[et->child_count - 1]->child[0]->head_type == NUMBER
+			&& et->child[et->child_count - 1]->child[1]->head_type == NUMBER)
+		) {
+
 		below = copy_tree(et->child[et->child_count - 1]);
 		et->child_count--;
 		add_child(et,
