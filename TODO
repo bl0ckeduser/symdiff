@@ -1,3 +1,15 @@
+May 2015.
+there's a new bug in the GUI edition!
+
+x * arctan(x) - 1/2log(x^2 + 1)
+
+hangs.
+
+might uncover a family of bugs by cracking this one though
+
+
+----------------------------------------------------------------------
+
 Tue, May 13, 2014 at 4:34 AM 
 
 "I have just installed your app which is really good, but it didn't 
