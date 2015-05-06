@@ -446,3 +446,9 @@ diff(x^x / (e^x+cos(x)), x)
 diff((x^3+x^5)/(e^x+cos(x)), x)
 diff(cos(x^3 / log(x^2)), x)
 diff(x^sin((3x+5)/x^2), x)
+
+
+# some new tests may 2015
+diff((x / cos(3sin(x^2) - sqrt(x))) * (1 + log(2x)), x)
+diff(3log(x^2)(1-sin(x)), x)
+diff(arctan(x * cos(x) * log(x^2 + sqrt(x))), x)
