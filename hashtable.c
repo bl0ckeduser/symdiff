@@ -1,7 +1,7 @@
 /* (adapted from wannabe C compiler project) */
 
 /*
- * Hash table (keys are generic void* pointers)
+ * Hash table
  */
 
 #include <stdlib.h>
