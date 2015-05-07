@@ -1,3 +1,16 @@
+=====================
+may 2015
+
+presentation issue
+diff(3x^2 * 2^(3x), x)
+
+it doesnt clean up the e^( .. * ln(2) * ...) i bnthe final output.
+
+
+
+
+========================
+
 May 2015.
 there's a new bug in the GUI edition!
 
