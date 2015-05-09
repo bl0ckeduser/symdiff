@@ -368,6 +368,25 @@ int optimize(exp_tree_t *et)
 		}
 	}
 
+	/*
+	 * (2/(2 * foo * bar)) => 1/ (foo * bar)
+	 */
+	if (et->child_count == 2
+		&& et->head_type == DIV
+		&& et->child[0]->head_type != MULT
+		&& et->child[1]->head_type == MULT) {
+		
+		cancel = et->child[0];
+		for (e = 0; e < et->child[1]->child_count; ++e) {
+			below = et->child[1]->child[e];
+			if (sametree(below, cancel)) {
+				make_tree_number(below, 1);
+				make_tree_number(cancel, 1);
+				return(1);
+			}
+		}
+	}
+
 	/* 
 	 * 2014-06-11
 	 * 
