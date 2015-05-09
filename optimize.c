@@ -387,6 +387,43 @@ int optimize(exp_tree_t *et)
 		}
 	}
 
+	/*
+	 * Helper for cases like  6 * 1/x^2 * x
+	 */
+	if (et->head_type == MULT) {
+		chk = 0;
+		for (q = 0; q < et->child_count; ++q) {
+			if (et->child[q]->head_type == DIV
+			   && et->child[q]->child_count == 2
+			   && et->child[q]->child[0]->head_type == NUMBER
+			   && tok2int(et->child[q]->child[0]->tok) == 1
+			   && et->child[q]->child[1]->head_type == EXP
+			   && et->child[q]->child[1]->child_count == 2
+			   && et->child[q]->child[1]->child[1]->head_type == NUMBER) {
+				cancel = et->child[q]->child[1]->child[0];
+				for (w = 0; w < et->child_count; ++w) {
+					if (w != q) {
+						if (sametree(cancel, et->child[w])
+						 || (et->child[w]->head_type == EXP
+							&& et->child[w]->child_count == 2
+							&& sametree(et->child[w]->child[0], cancel))) {
+							
+							new_ptr = copy_tree(cancel);
+							chk = tok2int(et->child[q]->child[1]->child[1]->tok);
+
+							et->child[q]->head_type = EXP;
+							et->child[q]->child_count = 2;
+							et->child[q]->child[0] = new_ptr;
+							make_tree_number(et->child[q]->child[1], -chk);
+
+							return(1);
+						}
+					}
+				}
+			}
+		}
+	}
+
 	/* 
 	 * 2014-06-11
 	 * 

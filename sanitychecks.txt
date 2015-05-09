@@ -452,3 +452,6 @@ diff(x^sin((3x+5)/x^2), x)
 diff((x / cos(3sin(x^2) - sqrt(x))) * (1 + log(2x)), x)
 diff(3log(x^2)(1-sin(x)), x)
 diff(arctan(x * cos(x) * log(x^2 + sqrt(x))), x)
+
+
+diff(3log(x^2)(1-sin(x)), x)
