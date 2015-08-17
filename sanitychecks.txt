@@ -455,3 +455,5 @@ diff(arctan(x * cos(x) * log(x^2 + sqrt(x))), x)
 
 
 diff(3log(x^2)(1-sin(x)), x)
+
+diff(cos(3x^2 + sin(x)) / sqrt(3log(x) + arctan(x)), x)
