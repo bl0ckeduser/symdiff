@@ -1,0 +1,22 @@
+Floateval-based error heuristic check
+=====================================
+
+$ ./sanitycheck.sh
+[...]
+all tests happy :D
+
+
+Profiling
+=========
+
+$ rm -f *.gcda
+$ ./sanitycheck.sh 
+[...]
+$ gcov optimize.c
+File 'optimize.c'
+Lines executed:98.94% of 752
+Creating 'optimize.c.gcov'
+
+
+$ vi optimize.c.gcov
+
