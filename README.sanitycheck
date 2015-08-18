@@ -6,8 +6,8 @@ $ ./sanitycheck.sh
 all tests happy :D
 
 
-Profiling
-=========
+Coverage analysis
+=================
 
 $ rm -f *.gcda
 $ ./sanitycheck.sh 
