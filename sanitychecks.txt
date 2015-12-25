@@ -457,3 +457,7 @@ diff(arctan(x * cos(x) * log(x^2 + sqrt(x))), x)
 diff(3log(x^2)(1-sin(x)), x)
 
 diff(cos(3x^2 + sin(x)) / sqrt(3log(x) + arctan(x)), x)
+
+# This one was sent in October 2014 by a customer who is a student
+# in the United States.
+diff(12t+10e^(2/10)^t, t)
