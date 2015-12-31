@@ -104,6 +104,42 @@ diff((5*x^3 + 4*x^2) / (e^x + cos(x) * 3*x^2), x)
 
 ====================================================================
 
+Fall 2015.
+
+A customer in the United States complains that it can't do implict
+differentiations. Which can be thought largely as an instance of
+equation solving. Peter Norvig's PAIP shows a data-driven approach
+where a small set of metalinguistic equations can be used to accomplish
+general-purpose solving of simple algebraic equations. This can be 
+investigated in the future I presume.
+
+Another nice thing to have which MAPLE has is to be able to backsubstitue
+the last expression into a new one. So we could have something like this:
+
+	]=> diff(x^x, x)
+
+		x ^ x * (1 + log(x))
+
+	]=> diff(??, x)
+
+		x ^ (x - 1) + x ^ x * (1 + log(x)) ^ 2
+
+The appropriate symbol could be, say, ?? or %% or something of that
+electric proprotion kernel. I had a colleague he was a cook, (C) 2015
+
+This way we can have easy N'th order differentiation.
+Another nice operator would be something like this
+
+	]=> ndiff(x^x, x, 2)
+
+		x ^ (x - 1) + x ^ x * (1 + log(x)) ^ 2
+
+To go with the foregoing of course.
+
+That's business with .NET.
+
+====================================================================
+
 couldn't i use prufer codes to do some massive crazy exhuastive
 testing ?
 
