@@ -494,5 +494,7 @@ void setup_tokenizer()
 	add_token(t[tc++], "::", TOK_CC);
 
 	add_token(t[tc++], "|'", TOK_NOTSYMBOL);
+
+	add_token(t[tc++], "\\?\\?", TOK_PREVSUB);
 }
 

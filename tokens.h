@@ -62,7 +62,8 @@ enum {
 	TOK_CC,
 	TOK_EXP,
 	TOK_NOTSYMBOL,
-	TOK_PIPE
+	TOK_PIPE,
+	TOK_PREVSUB
 };
 
 static char* tok_nam[] = {
@@ -120,7 +121,8 @@ static char* tok_nam[] = {
 	"TOK_CC",
 	"TOK_EXP",
 	"TOK_NOTSYMBOL",
-	"TOK_PIPE"
+	"TOK_PIPE",
+	"TOK_PREVSUB"
 };
 
 /* routines */

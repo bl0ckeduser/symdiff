@@ -125,7 +125,9 @@ the last expression into a new one. So we could have something like this:
 		x ^ (x - 1) + x ^ x * (1 + log(x)) ^ 2
 
 The appropriate symbol could be, say, ?? or %% or something of that
-electric proprotion kernel. I had a colleague he was a cook, (C) 2015
+nature.
+
+Update: the tokenizer has an entry for ?? now.
 
 This way we can have easy N'th order differentiation.
 Another nice operator would be something like this
@@ -135,8 +137,6 @@ Another nice operator would be something like this
 		x ^ (x - 1) + x ^ x * (1 + log(x)) ^ 2
 
 To go with the foregoing of course.
-
-That's business with .NET.
 
 ====================================================================
 
