@@ -2,11 +2,18 @@
 
 /*
  * Tokenization code based on wannabe-regex.c,
- * which I wrote some months ago
+ * which I wrote in Summer 2012
  */
 
 /* TODO: cleanup some of the more mysterious
  *       parts of the code...
+ *
+ * Take note, there is a cleaner smarter version of this same
+ * code which can be found here, but it is being used for a
+ * C compiler:
+ *   
+ *  https://raw.githubusercontent.com/bl0ckeduser/new-bpf-tools/master/compiler/tokenizer.c
+ *
  */
 
 #include "tokenizer.h"
