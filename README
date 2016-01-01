@@ -130,13 +130,18 @@ I'm not trying to steal anybody's trademarks. I'm just trying to write
 code for fun and learning.
 
 Also, I've made a closed-source-freeware step-by-step derivatives GUI
-desktop application based on this code. It is available at:
+desktop application based on this code.
+ 
+ http://www.softpedia.com/get/Science-CAD/Step-by-step-Derivative-Calculator.shtml
 
-   https://sites.google.com/site/bl0ckeduserssoftware/easyderivsteps
+There's now also a Windows 8/10 "app" version of the step-by-step GUI
+available:
 
-There's now also a Windows 8 "app" version of the step-by-step GUI available:
-
-   http://sites.google.com/site/bl0ckeduserssoftware/ssdc_w8
+ http://apps.microsoft.com/windows/en-us/app/step-by-step-derivative/e161f170-bb36-498e-9200-03217e4ec572
 
 Developing this app was somewhat of an interesting challenge.
-Tip: "Visual Studio 2012" needs a few GB of RAM to operate happily.
+
+The app has been used by users all around the world and licensed by Microsoft
+to education OEM partners. There have been lots of satisfied customers! :D
+
+
