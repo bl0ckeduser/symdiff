@@ -128,6 +128,8 @@ The appropriate symbol could be, say, ?? or %% or something of that
 nature.
 
 Update: the tokenizer has an entry for ?? now.
+Update: half-baked rule for ndiff written, doesnt work 100% with 
+        interpreter yet
 
 This way we can have easy N'th order differentiation.
 Another nice operator would be something like this

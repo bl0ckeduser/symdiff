@@ -1,1 +1,4 @@
+ndiff(a, b, 0) = 1
+ndiff(a, b, 1) = D(b, a)
+ndiff(a, b, #n) = diff(ndiff(a, b, n - 1), b)
 diff(a, b) = D(b, a)
