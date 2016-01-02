@@ -136,7 +136,7 @@ Update: half-baked rule for ndiff written, doesnt work 100% with
         interpreter yet
 
 It is now working for some cases but not for some others, there is a sneaky
-bug that has to be fixed somewhere...
+bug that has to be fixed somewhere... DONE 2016-01-02
 This is a case that works
 
 ]=> ndiff(x^x, x, 3)

@@ -52,6 +52,7 @@ int main(int argc, char** argv)
 	double fe_expected, fe_result, fe_error;
 	int fe_run;
 	double fe_eval_point = 2.0;
+	int tnorm, tnorm_old;
 
 	extern void fail(char*);
 	extern int unwind_expos(exp_tree_t *et);
@@ -209,7 +210,26 @@ int main(int argc, char** argv)
 					;
 				(void)apply_rules_and_optimize(pres_rules, prc,
 					&tree);
-				
+
+				/*
+				 * Have another few goes at it if it gets stuck
+				 * cough cough cough
+				 */
+				tnorm_old = -1;
+				while (check_incomplete(&tree)) {
+					tnorm = norm(&tree);
+					if (tnorm == tnorm_old) {
+						break;
+					}
+
+					apply_rules_and_optimize(rules, rc, &tree);
+					while (unwind_expos(&tree))
+						;
+					(void)apply_rules_and_optimize(pres_rules, prc, &tree);
+
+					tnorm_old = tnorm;
+				}
+
 				#ifndef FLOATEVAL
 				#ifndef LEAK_STRESS_TEST
 					printout_tree_infix(tree);
@@ -261,3 +281,38 @@ int main(int argc, char** argv)
 
 	return 0;
 }
+
+int norm(exp_tree_t *et)
+{
+	int i = 0;
+	int j = 0;
+	if (et->child_count == 0) {
+		return 1;
+	} else {
+		for (i = 0; i < et->child_count; ++i) {
+			j += norm(et->child[i]);
+		}
+		return j;
+	}
+}
+
+/*
+ * Check if a tree has a differentiation
+ * operator-node in it.
+ */
+int check_incomplete(exp_tree_t *et)
+{
+	int i = 0;
+
+	if (et->head_type == FUNC
+		&& et->tok->len == 1
+		&& et->tok->start[0] == 'D')
+		return 1;
+
+	for (i = 0; i < et->child_count; ++i) 
+		if (check_incomplete(et->child[i]))
+			return 1;
+
+	return 0;
+}
+
