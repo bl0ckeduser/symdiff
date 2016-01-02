@@ -131,6 +131,14 @@ Update: the tokenizer has an entry for ?? now.
 Update: half-baked rule for ndiff written, doesnt work 100% with 
         interpreter yet
 
+It is now working for some cases but not for some others, there is a sneaky
+bug that has to be fixed somewhere...
+This is a case that works
+
+]=> ndiff(x^x, x, 3)
+ x ^ x * -1 / x ^ 2 + 2 * (1 + log(x)) * x ^ (x - 1) 
+  + x ^ (x - 1) * (1 + log(x)) + (1 + log(x)) ^ 3 * x ^ x
+
 This way we can have easy N'th order differentiation.
 Another nice operator would be something like this
 
