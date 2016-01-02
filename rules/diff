@@ -1,4 +1,10 @@
+# N'th order derivatives - jan 2016
 ndiff(a, b, 0) = 1
 ndiff(a, b, 1) = D(b, a)
 ndiff(a, b, #n) = diff(ndiff(a, b, n - 1), b)
+
+# this rule is needed because we can't do forward
+# references with variable matches. so it is best
+# to have the variable of differentiation come first
 diff(a, b) = D(b, a)
+

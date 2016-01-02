@@ -113,6 +113,10 @@ where a small set of metalinguistic equations can be used to accomplish
 general-purpose solving of simple algebraic equations. This can be 
 investigated in the future I presume.
 
+PAIP also indicates that there are limits to rule/data-driven approaches
+to symbolic algebra. Which is already being accounted for here with the
+optimize.c stuff which is written in C. ;-)
+
 Another nice thing to have which MAPLE has is to be able to backsubstitue
 the last expression into a new one. So we could have something like this:
 
