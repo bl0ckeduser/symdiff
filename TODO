@@ -139,6 +139,11 @@ This is a case that works
  x ^ x * -1 / x ^ 2 + 2 * (1 + log(x)) * x ^ (x - 1) 
   + x ^ (x - 1) * (1 + log(x)) + (1 + log(x)) ^ 3 * x ^ x
 
+]=> ndiff(x^3, x, 3)
+  x ^ 2 * (-6 / x ^ 2 + 12 / x ^ 2)
+
+This creates an interesting new case for simplifications!
+
 This way we can have easy N'th order differentiation.
 Another nice operator would be something like this
 
