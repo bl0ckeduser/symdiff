@@ -1366,6 +1366,63 @@ filter_zeroes:
 	}
 
 	/*
+	 * a0/L + a1/L + ... + aN/L 
+	 * = (a0 + a1 + ... + aN) / L
+	 *
+	 * Useful if a0, ..., aN all numbers
+	 * Then we can do e.g.
+	 *  x ^ 2 * (-6 / x ^ 2 + 12 / x ^ 2) = 6
+ 	 */
+	if (et->head_type == ADD) {
+		/* 
+		 * Check all terms are a0/L, a0 number form,
+		 * and that all terms are identical
+		 */
+		chk = 1;
+		for (q = 0; q < et->child_count; ++q) {
+			if (et->child[q]->head_type == DIV 
+			     && et->child[q]->child_count == 2
+			     && et->child[q]->child[0]->head_type == NUMBER) {
+				if (q > 0) {
+					if (!sametree(et->child[q - 1]->child[1],
+					              et->child[q]->child[1])) {
+						chk = 0;
+						break;
+					}
+				}
+			} else {
+				chk = 0;
+				break;
+			}
+		}
+	
+		/*
+		 * Check is good, fold out the denominators from
+		 * all the terms
+		 */
+		if (chk) {
+			exp_tree_t *denom = copy_tree(et->child[0]->child[1]);
+
+			for (q = 0; q < et->child_count; ++q) {
+				et->child[q] = copy_tree(et->child[q]->child[0]);
+			}
+
+			new_ptr = malloc(sizeof(exp_tree_t));
+			memcpy(new_ptr, et, sizeof(exp_tree_t));
+
+			new2_ptr = alloc_exptree(new_exp_tree(DIV, NULL));
+			new2_ptr->head_type = DIV;
+			new2_ptr->child_count = 0;
+			add_child(new2_ptr, new_ptr);
+			add_child(new2_ptr, denom);
+			memcpy(et, new2_ptr, sizeof(exp_tree_t));
+			return(1);
+		} else {
+			return(0);
+		}
+	}	
+
+	/*
 	 * number * -expression => -number * expression
 	 */
 	if (et->head_type == MULT) {
