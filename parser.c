@@ -516,8 +516,10 @@ exp_tree_t unary_expr(int special)
 					need(TOK_COMMA);
 			}
 			++indx;
-			/* if there's already a negative sign,
-			 * use that as a parent tree */
+			/* 
+			 * If there's already a negative sign,
+			 * use that as a parent tree 
+			 */
 			if (valid_tree(tree))
 				add_child(&tree, alloc_exptree(subtree));
 			else
