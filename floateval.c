@@ -53,6 +53,12 @@ double float_eval(exp_tree_t *t, double val)
 		{ "sqrt", &sqrt },
 		{ "tan", &tan },
 		{ "sec", &my_sec },
+		/*
+		 * D is the local notation for the differentiation operator.
+		 * Definitely things are wrong if it didn't succesfully reduce 
+		 * differentiation operators to numerical operators, so then
+		 * it is (presumably) appropriate to return a NaN.
+		 */
 		{ "D", &give_a_nan }
 	};
 

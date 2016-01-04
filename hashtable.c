@@ -83,6 +83,8 @@ void* hashtab_lookup(hashtab_t* htab, char* key)
 			hashtab_hash(key, htab->nbuck));
 }
 
+/* ======================================================== */
+
 void* hashtab_lookup_with_hash(hashtab_t* htab, char* key, int hash)
 {
 	hashtab_entry_t *ptr = htab->buck[hash];
