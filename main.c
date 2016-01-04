@@ -326,8 +326,8 @@ int check_incomplete(exp_tree_t *et)
 	int i = 0;
 
 	if (et->head_type == FUNC
-		&& et->tok->len == 1
-		&& et->tok->start[0] == 'D')
+	     && et->tok->len == 1
+	     && et->tok->start[0] == 'D')
 		return 1;
 
 	for (i = 0; i < et->child_count; ++i) 
