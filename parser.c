@@ -36,7 +36,7 @@ exp_tree_t signed_expr();
 void printout(exp_tree_t et);
 extern void fail(char* mesg);
 
-/* give the current token */
+/* Give the current token */
 token_t peek()
 {
 	if (indx >= tok_count) {
@@ -46,10 +46,12 @@ token_t peek()
 		return tokens[indx];
 }
 
-/* generate a pretty error when parsing fails.
+/* 
+ * Generate a pretty error when parsing fails.
  * this is a hack-wrapper around the routine
  * in diagnostics.c that deals with certain
- * special cases special to the parser. */
+ * special cases special to the parser. 
+ */
 void parse_fail(char *message)
 {
 	token_t tok;

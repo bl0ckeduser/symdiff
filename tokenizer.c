@@ -262,12 +262,16 @@ match_t match_algo(trie* t, char* full_tok, char* tok, int frk,
 		last_inc = 0;
 		c = tok[i];
 
-		/* check if multiple epsilon edges exist
-		 * and if we are not already in a fork */ 
+		/*
+		 * Check if multiple epsilon edges exist
+		 * and if we are not already in a fork 
+		 */ 
 		if (t->links && !frk)
 		{
-			/* fork for each possibility
-			 * and collect results in an array */
+			/*
+			 * Fork for each possibility
+			 * and collect results in an array 
+			 */
 
 			/* character edge: frk = 1 */
 			if (t->map[c])
@@ -281,8 +285,10 @@ match_t match_algo(trie* t, char* full_tok, char* tok, int frk,
 					j + 2, led, ledi)).token)
 					ml[mc++] = m;
 
-			/* if there are multiple epsilon matches,
-			 * be "greedy", i.e. choose longest match. */
+			/* 
+			 * If there are multiple epsilon matches,
+			 * be "greedy", i.e. choose longest match. 
+			 */
 			if (mc > 1) {
 				record = 0;
 				choice = NULL;
@@ -300,9 +306,11 @@ match_t match_algo(trie* t, char* full_tok, char* tok, int frk,
 				return m;
 		}
 
-		/* if we are not in an epsilon fork
+		/* 
+		 * If we are not in an epsilon fork
 		 * and the character edge exists,
-		 * follow it. */
+		 * follow it. 
+		 */
 		if (frk <= 1 && t->map[c]) {
 			t = t->map[c];
 
@@ -316,11 +324,14 @@ match_t match_algo(trie* t, char* full_tok, char* tok, int frk,
 			goto valid;
 		}
 		else if (frk > 1) {
-			/* prevents infinite loops: if the
+			/* 
+			 * Prevents infinite loops: if the
 			 * link chosen in this fork brings us back
 			 * to the last link followed and the character
 			 * index has not increased since we followed 
-			 * this last link, do not follow it */
+			 * this last link, do not follow it 
+			 * (magic mystery code from 2012 ?!)
+			 */
 			if (!(led && t->link[frk - 2] == led
 			    && (int)(&tok[i] - full_tok) == ledi)) {
 
@@ -339,9 +350,11 @@ match_t match_algo(trie* t, char* full_tok, char* tok, int frk,
 
 		break;
 
-		/* clear fork path number after the first
+		/* 
+		 * Clear fork path number after the first
 		 * iteration of the loop, it is not relevant
-		 * afterwards */
+		 * afterwards 
+		 */
 valid:		if (frk)
 			frk = 0;
 
@@ -431,8 +444,10 @@ advance:
 			if (max == 0)
 				++p;
 
-			/* line accounting (useful for
-		 	 * pretty parse-fail diagnostics) */
+			/* 
+			 * Line accounting (useful for 
+		 	 * pretty parse-fail diagnostics) 
+			 */
 			if (c.token == TOK_NEWLINE) {
 				code_lines[line] = line_start;
 				++line;

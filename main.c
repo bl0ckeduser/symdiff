@@ -119,8 +119,10 @@ int main(int argc, char** argv)
 			}
 		#endif
 
-		/* Skip empty lines. The parsing code really
-		 * hates them, and by "really" I mean segfault. */
+		/* 
+		 * Skip empty lines. The parsing code really
+		 * hates them, and by "really" I mean segfault. 
+	 	 */
 		if (!lin[1])
 			continue;
 
@@ -295,6 +297,10 @@ int main(int argc, char** argv)
 	return 0;
 }
 
+/*
+ * Used to have a guess at whether we had
+ * any luck in reducing an expression.
+ */
 int norm(exp_tree_t *et)
 {
 	int i = 0;

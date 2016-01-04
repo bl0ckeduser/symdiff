@@ -15,6 +15,18 @@
  * Maybe it would be possible to come up with
  * a domain-language that simplifies the coding
  * of the algebraic simplifications...
+ *
+ * Although in Norvig's PAIP book it is claimed
+ * that rule-driven approaches always have limits,
+ * so perhaps it does still make sense to have 
+ * some slightly "dirty" code like this...
+ *
+ * The good news is that it is massively unit-tested
+ * and coverage-checked using included debugging scripts.
+ *
+ * So it's reasonably legit. And it's been through lots
+ * manual testing and been "tested" by presumably hundreds
+ * of customers of the GUI build around the globe...
  */
 
 #include "tree.h"
