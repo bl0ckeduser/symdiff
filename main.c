@@ -214,8 +214,12 @@ int main(int argc, char** argv)
 				/* Some final clean-up ... */
 				while(unwind_expos(&tree))
 					;
+				/*
+				 * Presentation: stuff like unfolding back
+				 * e^log(x) to x, etc. etc. etc.
+				 */ 
 				while (apply_rules_and_optimize(pres_rules, prc,
-				       &tree))
+				                                &tree))
 					;
 
 				/*
