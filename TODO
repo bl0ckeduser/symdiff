@@ -147,6 +147,9 @@ This is a case that works
   x ^ 2 * (-6 / x ^ 2 + 12 / x ^ 2)
 
 This creates an interesting new case for simplifications!
+(The foregoing should reduce down to 6 quite simply)
+And by doing lots and lots of ndiff's I presume lots of candidates
+for simplifications will arise
 
 This way we can have easy N'th order differentiation.
 Another nice operator would be something like this
