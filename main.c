@@ -298,8 +298,10 @@ int main(int argc, char** argv)
 }
 
 /*
- * Used to have a guess at whether we had
+ * This is used to have a guess at whether we had
  * any luck in reducing an expression.
+ * This is somewhat analogous to the "Frobenius norm"
+ * concept in linear algebra...
  */
 int norm(exp_tree_t *et)
 {
