@@ -216,10 +216,15 @@ A * B + A / XYZ * A * A + A
 
 cos(3x^2 + sin(x)) / log(sin(x)cos(x) + e^x +sqrt(3x^2 + sin(x))) + cos(3x^2 + ln(x)^3)
 
+#
 # A new cancellation - Jan 2016
+#
 
+# this works out to 6!!!
 x ^ 2 * (-6 / x ^ 2 + 12 / x ^ 2)
+
 x ^ 2 * (-6 / x ^ 2 + 12 / x ^ 3 + 12 / x^3)
+
 x ^ 2 * (-6 / x ^ 3 + 12 / x ^ 3 + 12 / x^3)
 
 
@@ -294,6 +299,9 @@ diff((x^2)^(1/3), x)
 diff(sin(x)^2, x)
 diff(1/x^2, x)
 
+# NOTE Jan 2016
+# This is a case where there is an e^log(x) that has to be
+# cleaned up.
 diff((x-5)^2 / (4*x+9)^3, x)
 
 diff(e^(cos(x) * sin(x)), x)
