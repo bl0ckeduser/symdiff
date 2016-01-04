@@ -202,14 +202,21 @@ int main(int argc, char** argv)
 				}
 			#endif
 
-			/* Print final result if any reductions
-			 * succeeded */
+			/* 
+			 * Print final result if any reductions
+			 * succeeded
+			 */
 			if (apply_rules_and_optimize(rules, rc, &tree)) {
+				/* Go at it N more times */
+				while(apply_rules_and_optimize(rules, rc, &tree))
+					;
+
 				/* Some final clean-up ... */
 				while(unwind_expos(&tree))
 					;
-				(void)apply_rules_and_optimize(pres_rules, prc,
-					&tree);
+				while (apply_rules_and_optimize(pres_rules, prc,
+				       &tree))
+					;
 
 				/*
 				 * Have another few goes at it if it gets stuck
@@ -222,10 +229,12 @@ int main(int argc, char** argv)
 						break;
 					}
 
-					apply_rules_and_optimize(rules, rc, &tree);
+					while(apply_rules_and_optimize(rules, rc, &tree))
+						;
 					while (unwind_expos(&tree))
 						;
-					(void)apply_rules_and_optimize(pres_rules, prc, &tree);
+					while (apply_rules_and_optimize(pres_rules, prc, &tree))
+						;
 
 					tnorm_old = tnorm;
 				}

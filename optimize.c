@@ -1363,7 +1363,7 @@ filter_zeroes:
 		et->child[1]->child[1] = new2_ptr;
 		
 		return(1);
-	}
+	} 
 
 	/*
 	 * a0/L + a1/L + ... + aN/L 

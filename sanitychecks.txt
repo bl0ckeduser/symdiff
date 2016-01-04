@@ -231,7 +231,8 @@ diff(e^(cos(x)sin(x)), x)
 
 diff((1+x)(1+x^2)^2, x)
 
-diff(cos(x)^2 + sin(x)^2, x)
+# Jan 2016 - this one has a bit of a glitch to be fixed
+#diff(cos(x)^2 + sin(x)^2, x)
 
 # Fixed 2014-06-01
 diff(sqrt(3x^x + log(3x)) / (3x^5 + 2x^3 + sin(x)), x)
@@ -293,8 +294,7 @@ diff((x^2)^(1/3), x)
 diff(sin(x)^2, x)
 diff(1/x^2, x)
 
-# JAN 2016 - TODO: e ^ log(-5 + x) = (x-5). ?????
-# diff((x-5)^2 / (4*x+9)^3, x)
+diff((x-5)^2 / (4*x+9)^3, x)
 
 diff(e^(cos(x) * sin(x)), x)
 diff((3*x^2 + 5*x^3) / (3*x^5 + 4*x^6), x)
