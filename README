@@ -15,6 +15,8 @@
 
    It is very far from perfect and could be improved upon.
    It is coded in hopefully-not-too-bad C.
+   As of January 2016, doing a bunch of complicated examples then quitting
+   leaks no memory according to valgrind.
 
    Much of it is strongly based on examples given in the SICP 
    ("Structure and Interpretation of Computer Programs") book and videos
