@@ -65,6 +65,16 @@ z ^ (z ^ z) * (log(z) * z ^ z * (1 + log(z)) + z ^ (z - 1))
 ]=> diff(z^x^y, x)
 z ^ (x ^ y) * x ^ (y - 1) * log(z) * y
 
+A quick example for N'th order derivatives, which were added January 2016:
+
+]=> ndiff(sin(x), x, 100)
+sin(x)
+
+It can find that in about a second on 1.50 GHz Celeron cheap laptop
+
+Yes it's that fast ;-)
+
+
 Acknowledgements
 ----------------
 
