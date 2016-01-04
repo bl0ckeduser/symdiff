@@ -236,8 +236,8 @@ diff(e^(cos(x)sin(x)), x)
 
 diff((1+x)(1+x^2)^2, x)
 
-# Jan 2016 - this one has a bit of a glitch to be fixed
-#diff(cos(x)^2 + sin(x)^2, x)
+# This exercises the e^log(x) = x stuff too
+diff(cos(x)^2 + sin(x)^2, x)
 
 # Fixed 2014-06-01
 diff(sqrt(3x^x + log(3x)) / (3x^5 + 2x^3 + sin(x)), x)

@@ -1417,8 +1417,6 @@ filter_zeroes:
 			add_child(new2_ptr, denom);
 			memcpy(et, new2_ptr, sizeof(exp_tree_t));
 			return(1);
-		} else {
-			return(0);
 		}
 	}	
 
