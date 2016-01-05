@@ -1,3 +1,13 @@
+v1.10
+January 4, 2016
+
+bug fixes
+improvements to algebraic cancellations
+ndiff(f(x), x, #): N'th order derivative command
+GUI Windows "app" version verified compatible with Windows 10
+
+----------------------------------------------------------------------------
+
 v1.9
 
 commit aa124f7f79787461d1d12d3f76df432d0a0187ea
