@@ -1430,7 +1430,28 @@ filter_zeroes:
 			memcpy(et, new2_ptr, sizeof(exp_tree_t));
 			return(1);
 		}
-	}	
+	}
+
+	/*
+	 * A*x^(#n < 0) = A/x^(n)
+	 *
+	 * Combined with other rules, this allows:
+	 *   x ^ 2 * (12 * x ^ -3 + -12 / x ^ 3 + -12 / x ^ 3 + 12 / x ^ 3)
+	 *   --> 0
+	 */
+	if (et->head_type == MULT
+	     && et->child_count == 2
+	     && et->child[1]->head_type == EXP
+	     && et->child[1]->child_count == 2
+	     && et->child[1]->child[1]->head_type == NUMBER) {
+
+		r = tok2int(et->child[1]->child[1]->tok);
+		if (r < 0) {
+			et->head_type = DIV;
+			make_tree_number(et->child[1]->child[1], -r);
+			return(1);
+		}
+	}
 
 	/*
 	 * number * -expression => -number * expression
