@@ -177,6 +177,13 @@ and then it would give
 
 which is correctly recognized as zero by current rules
 
+Fixed 2016-01-05:
+
+	]=> ndiff(x^3, x, 4)
+	
+		0
+
+
 ====================================================================
 
 couldn't i use prufer codes to do some massive crazy exhuastive
