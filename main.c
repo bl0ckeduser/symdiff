@@ -102,7 +102,7 @@ int main(int argc, char** argv)
 		printf("\nYou will be given a prompt. As always, you can use\n");
 		printf("CTRL-C to exit.\n");
 		printf("\n");
-		printf("This is version v1.10\n");
+		printf("This is version v1.10 + epsilon\n");
 		printf("programmed by blockeduser, 2012-2016\n");
 		printf("special thanks go to knipil for fixing a parser bug and to\n");
 		printf("customers all around the world for using the software and\n");

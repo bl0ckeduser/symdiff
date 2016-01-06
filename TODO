@@ -160,6 +160,23 @@ Another nice operator would be something like this
 
 To go with the foregoing of course.
 
+
+]=> ndiff(x^3, x, 4)
+
+	x ^ 2 * (12 * x ^ -3 + -12 / x ^ 3 + -12 / x ^ 3 + 12 / x ^ 3)
+
+That should cancel to zero... That's a pretty nasty one in fact..
+Maybe we can have a rule to do
+
+	A*x^(#n < 0) = A/x^(n)
+
+and then it would give
+
+	(12 * x ^ -3 + -12 / x ^ 3 + -12 / x ^ 3 + 12 / x ^ 3)
+	-> (12 / x^ 3 + -12 / x ^ 3 + -12 / x ^ 3 + 12 / x ^ 3)
+
+which is correctly recognized as zero by current rules
+
 ====================================================================
 
 couldn't i use prufer codes to do some massive crazy exhuastive
