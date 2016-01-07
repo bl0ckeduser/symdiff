@@ -5,7 +5,8 @@
  * which I wrote in Summer 2012
  */
 
-/* TODO: cleanup some of the more mysterious
+/* 
+ * TODO: cleanup some of the more mysterious
  *       parts of the code...
  *
  * Take note, there is a cleaner smarter version of this same
