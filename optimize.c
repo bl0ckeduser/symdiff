@@ -15,6 +15,9 @@
  * Maybe it would be possible to come up with
  * a domain-language that simplifies the coding
  * of the algebraic simplifications...
+ * I've been thinking about that for about 2 years
+ * now and I'm slowly starting to have ideas for
+ * syntax for such a language
  *
  * Although in Norvig's PAIP book it is claimed
  * that rule-driven approaches always have limits,
