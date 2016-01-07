@@ -839,8 +839,10 @@ filter_zeroes:
 					}
 
 
-					/* now stick them in the first exponentiation,
-					 * and delete the others */
+					/* 
+					 * Now stick them in the first exponentiation,
+					 * and delete the others
+					 */
 					r = 0;
 					for (q = 0; q < et->child_count; ++q) {
 						if (et->child[q]->head_type == EXP
