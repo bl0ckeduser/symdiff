@@ -1288,7 +1288,7 @@ filter_zeroes:
 	}
 
 	/*
-	 * 	   	donald / (u * x ^ n) * x * foo
+	 * 	donald / (u * x ^ n) * x * foo
 	 * =>  	donald / (u * x ^ (n - 1)) * foo
 	 */
 	if (et->head_type == MULT) {
