@@ -470,8 +470,10 @@ void setup_tokenizer()
 {
 	int i = 0;
 
-	/* set up the automatons that
-	 * match the various token types */
+	/* 
+	 * Set up the automata that
+	 * match the various token types 
+	 */
 
 	for (i = 0; i < 100; i++)
 		t[i] = new_trie();
