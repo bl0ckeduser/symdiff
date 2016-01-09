@@ -193,6 +193,17 @@ x * (6 / x * -6 * cos(3 * x ^ 2) * x + -6 * x * (cos(3 * x ^ 2) * 6 / x + -36 * 
 why doesn't it reduce it properly in the first case???
 Maybe there is some ill-formed structure or something
 
+yes
+the pattern is:
+
+(MULT 
+   (DIV 
+      (NUMBER:6) 
+      (VARIABLE:x)
+    )
+    (NEGATIVE 
+      (MULT
+         ....
 
 ====================================================================
 
