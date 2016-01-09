@@ -183,6 +183,16 @@ Fixed 2016-01-05:
 	
 		0
 
+Some more weirdness
+
+]=> ndiff(cos(3x^2), x, 3)
+x * (6 / x * -6 * cos(3 * x ^ 2) * x + -6 * x * (cos(3 * x ^ 2) * 6 / x + -36 * sin(3 * x ^ 2) * x) + -6 * cos(3 * x ^ 2) * x * 6 / x)
+]=> 6 / x * -6 * cos(3 * x ^ 2) * x
+-36 * cos(3 * x ^ 2)
+
+why doesn't it reduce it properly in the first case???
+Maybe there is some ill-formed structure or something
+
 
 ====================================================================
 
