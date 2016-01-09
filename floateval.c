@@ -1,3 +1,8 @@
+/*
+ * Numerical evaluation of an expression tree.
+ * Used for regression testing.
+ */
+
 #include "tree.h"
 #include "hashtable.h"
 #include "tokenizer.h"

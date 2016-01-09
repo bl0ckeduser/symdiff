@@ -4,6 +4,9 @@
  * Data structure: symbol-matches dictionary produced
  * by the matching algorithm and used by the substitution
  * algorithm.
+ *
+ * XXX: this could be replaced by a hash table for
+ * increased efficiency. See hashtable.c
  */
 
 #include <stdlib.h>

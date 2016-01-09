@@ -1,9 +1,10 @@
 /*
- * rough "garbage collector" helping system
+ * Rough "garbage collector" helping system
  * (memory allocations are made into groups
  * which are freed by the main code when it
  * is certain that the memory belonging in a group is 
- * done with)
+ * done with. This ensures absence of memory leaks.
+ * See valgrind2016.txt for a demo).
  */
 
 #include "gc.h"

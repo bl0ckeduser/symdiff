@@ -13,6 +13,9 @@
  *
  * Also, we (try to) apply the optimization
  * routine.
+ *
+ * This goes on in a loop as long as either
+ * pass succeeds.
  */
 
 int apply_rules_and_optimize(exp_tree_t** rules, int rc, exp_tree_t *tree)

@@ -7,6 +7,9 @@
  * Rule-based Substitution").
  *
  * The nasty extensions are not from SICP.
+ *
+ * See the file SYNTAX for a documentation of
+ * the matching faculties.
  */
 
 #include "tree.h"
@@ -279,7 +282,8 @@ int treematch(exp_tree_t *a, exp_tree_t *b, dict_t* d)
  * Recursively iterate through all rules on all the
  * children of the tree until the
  * expression is irreducible, i.e. stops
- * changing.
+ * changing. This is invoked, possibly repeatedly, by the
+ * control module in apply-rules.c.
  */
 int matchloop(exp_tree_t** rules, int rc, exp_tree_t* tree)
 {
@@ -289,7 +293,6 @@ int matchloop(exp_tree_t** rules, int rc, exp_tree_t* tree)
 	int mc;
 	int m = 0;
 
-restart:
 	do {
 		mc = 0;
 		
@@ -354,14 +357,15 @@ restart:
 	} while (mc);
 
 	/*
-	 * Do matching loop on all children. If it succeeds,
-	 * do the loop again on this tree. 
+	 * Do matching loop on all children.
+	 * If any of the children nodes were succesfully reduced,
+	 * also raise the success flag for the control module.
 	 */
 	for (i = 0; i < tree->child_count; ++i)
 		if (matchloop(rules, rc, tree->child[i])) {
 			m = 1;
-			/* goto restart; */
 		}
+
 	return m;
 }
 

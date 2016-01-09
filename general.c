@@ -1,8 +1,10 @@
+
+/* 
+ * General-use routines 
+ */
+
 #include "gc.h"
 #include "tokenizer.h"
-
-/* General-use routines */
-
 #include <stdlib.h>
 #include <stdio.h>
 
