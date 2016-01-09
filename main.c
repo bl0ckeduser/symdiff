@@ -254,9 +254,6 @@ int main(int argc, char** argv)
 
 				#ifndef FLOATEVAL
 				#ifndef LEAK_STRESS_TEST
-					printout_tree(tree);
-					printf("\n");
-
 					printout_tree_infix(tree);
 					printf("\n");
 				#endif

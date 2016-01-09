@@ -1459,6 +1459,20 @@ filter_zeroes:
 	}
 
 	/*
+	 * (NEGATIVE (MULT ...
+	 *
+	 * -> (MULT -1 ...
+	 */
+	if (et->head_type == NEGATIVE
+	    && et->child_count == 1
+	    && et->child[0]->head_type == MULT) {
+	
+		memcpy(et, et->child[0], sizeof(exp_tree_t));
+		add_child(et, new_tree_number(-1));
+		return(1);
+	}
+
+	/*
 	 * number * -expression => -number * expression
 	 */
 	if (et->head_type == MULT) {
