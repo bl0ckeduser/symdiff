@@ -271,7 +271,7 @@ int optimize(exp_tree_t *et)
 	 */
 	if (et->child_count == 2
 		&& et->child[0]->head_type == et->head_type
-		&& arith_type(et->head_type)) {
+		&& (et->head_type == ADD || et->head_type == SUB || et->head_type == MULT)) {
 		below = et->child[0];
 		right_child = et->child[1];
 		et->child_count = 0;
